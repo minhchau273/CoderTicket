@@ -8,12 +8,21 @@ html
     = csrf_meta_tags
   body
     nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse
-      a.navbar-brand href="#{root_path}" Coder Ticket
-      ul.nav.navbar-nav
-        li.nav-item
-          a.nav-link href="#"
-            | Log In
-        li.nav-item
-          a.nav-link href="/register"
-            | Sign Up
+      a.navbar-brand href="#{root_path}" Cheetah Ticket
+      - unless current_user
+        ul.nav.navbar-nav
+          li.nav-item
+            a.nav-link href="/login"
+              | Sign In
+          li.nav-item
+            a.nav-link href="/register"
+              | Sign Up
+      - else
+        ul.nav.navbar-nav.navbar-right
+          li.nav-item
+            a.nav-link href="#"
+              | Welcome #{current_user.email}
+          li.nav-item
+            a.nav-link href="/logout"
+              | Sign Out
     = yield
