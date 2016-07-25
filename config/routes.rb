@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy'
 
+# can we defind these named paths in a Restful way where the resource is sessions
+
+  resource :sessions, only: [:new, :create, :destroy]
+
   get 'register', to: 'users#new'
 
   resources :users
