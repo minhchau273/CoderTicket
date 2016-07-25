@@ -33,6 +33,8 @@ gem 'better_errors', group: :development
 gem 'font-awesome-rails'
 gem 'font-kit-rails', '~> 1.2.0'
 
+gem 'slim-rails'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

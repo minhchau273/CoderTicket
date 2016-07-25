@@ -1,0 +1,11 @@
+.events-header style=("background-image: url(#{header_background_image_url})")
+  .container
+    h2
+      |  Discover upcoming events 
+    form
+      input.form-control type="text" name="search" placeholder="Search for events, shows, courses..."
+.container-fluid.events-list
+  - @events.in_groups_of(3) do |g|
+    .row
+      - g.compact.each do |e|
+        = render partial: 'card', locals: { event: e }

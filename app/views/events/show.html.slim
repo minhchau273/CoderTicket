@@ -1,0 +1,38 @@
+.container-fluid.no-pad.events-detail
+  .row.no-pad
+    .col-md-3.sidebar
+      p
+        = fa_icon 'ticket'
+        |  Price 
+      h1
+        |  Hot Events 
+      .ticket-list
+        - @event.ticket_types.each do |ticket_type|
+          .row
+            .col-md-6
+              = ticket_type.name
+            .col-md-6.price.text-right
+              = number_to_currency(ticket_type.price, unit: 'VND', precision: 0)
+          .clearfix
+        = link_to new_event_ticket_path(@event) do
+          button.btn.btn-lg.btn-block.btn-danger
+            |  BOOK NOW 
+    .col-md-9.event-content
+      .hero-img.hidden-sm-down style=("background-image: url(#{event.hero_image_url}; background-size: cover")
+    .container
+      h3
+        = @event.name
+      .pull-left
+        = fa_icon 'clock-o'
+      .time-details
+        = @event.starts_at.strftime('%A, %d %b %Y %l:%M %p')
+      .pull-left
+        = fa_icon 'map-marker'
+      .venue-details
+        = @event.venue.name
+        br
+        = @event.venue.full_address
+      .img-spacer
+        = image_tag 'shadow-top.png'
+      .extended-description
+        = @event.extended_html_description.html_safe
