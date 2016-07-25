@@ -1,0 +1,178 @@
+body {
+    background: #f3f3f3;
+    font-family: 'Montserrat', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    margin: 50px auto;
+    width: 70%;
+}
+
+.login {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 520px;
+    background: url('https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xfa1/t31.0-8/12244631_10207346713641237_8758471343492268820_o.jpg') no-repeat;
+    background-size: cover;
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.8);
+    padding: 50px 60px 50px 40px;
+}
+
+.tabs {
+    margin-bottom: 50px;
+    padding-left: 20px;
+    span a {
+        display: inline-block;
+        color: #FFF;
+        font-size: 1.4em;
+        border-bottom: 2px solid #1161f0;
+        padding-bottom: 5px;
+        margin-right: 40px;
+        text-decoration: none;
+    }
+    .inactive {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-right: 40;
+        opacity: 0.4;
+    }
+}
+
+form {
+    margin-bottom: 30px;
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    li {
+        position: relative;
+        display: block;
+        margin-bottom: 45px;
+    }
+    .checkbox {
+        margin-top: -15px;
+        padding-left: 20px;
+        margin-bottom: 30px;
+    }
+    .label-float {
+        font-size: 0.9em;
+        padding: 12px 20px;
+        display: block;
+        width: 100%;
+        border: none;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #FFF;
+        font-size: 0.9em;
+    }
+    .label-float:focus {
+        outline: none;
+    }
+    .label-float:focus ~ label,
+    .label-float:valid ~ label {
+        top: -25px;
+        opacity: 0.6;
+        font-size: 0.75em;
+    }
+    .floating {
+        color: #FFF;
+        font-size: 0.8em;
+        position: absolute;
+        pointer-events: none;
+        left: 20px;
+        top: 13px;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+    .submit-button {
+        display: block;
+        text-align: center;
+        background: rgb(58, 96, 233);
+        color: #FFF;
+        border-radius: 20px;
+        padding: 12px 0;
+        width: 100%;
+        border: none;
+        font-size: 0.85em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+    .submit-button:hover {
+        background: darken(rgb(58, 96, 233), 10%);
+    }
+    input[type="checkbox"] {
+        padding: 5px;
+        cursor: pointer;
+    }
+    label {
+        font-size: 0.9em;
+        color: #FFF;
+    }
+}
+
+input[type=checkbox].css-checkbox {
+    position: absolute;
+    z-index: -1000;
+    left: -1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+    padding-left: 21px;
+    height: 16px;
+    display: inline-block;
+    line-height: 16px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+    background-position: 0 -16px;
+}
+
+label.css-label {
+    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_a806045301ffb949c486ac3eeaf74e4d.png);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.footer {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 2px solid #2f3249;
+    a {
+        color: #545561;
+        text-decoration: none;
+        font-size: 1em;
+    }
+    a:hover {
+        color: lighten(#545561, 35%);
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+}
+
+.error {
+    color: wheat;
+}
