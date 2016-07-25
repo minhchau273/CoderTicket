@@ -44,6 +44,13 @@ gem 'slim-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'shoulda-matchers', '~> 2.8.0'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'faker'
+  gem 'factory_girl_rails', '~> 4.0'
 end
 
 group :development do
@@ -54,3 +61,6 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  gem 'simplecov', require: false
+end
