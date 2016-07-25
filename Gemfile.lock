@@ -40,6 +40,7 @@ GEM
     autoprefixer-rails (6.1.2)
       execjs
       json
+    bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -169,6 +170,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   better_errors
   bootstrap (~> 4.0.0.alpha1)
   byebug
