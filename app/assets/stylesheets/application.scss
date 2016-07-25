@@ -3,16 +3,18 @@
 */
 
 @import "bootstrap";
-@import "font-awesome";
 @import "col-helpers";
-@import "nav";
+@import "color";
 @import "events";
+@import "font-awesome";
+@import "nav";
 @import "tickets";
 
 body {
   font-family: 'Open Sans';
 }
+
 .btn.btn-danger {
-  background-color: rgb(216, 87, 66);
-  border: 2px solid rgb(241, 112, 91);
+  background-color: $flame_pea_color;
+  border: 2px solid $burnt_sienna_color;
 }
