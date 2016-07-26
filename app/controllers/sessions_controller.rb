@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     if current_user
       redirect_to root_path
     else
-      @error = params[:error].present?
+      @has_error = params[:error].present?
       render layout: false
     end
   end

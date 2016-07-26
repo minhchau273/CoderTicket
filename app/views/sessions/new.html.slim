@@ -24,7 +24,10 @@ html
               label.floating PASSWORD
           = f.submit "Sign In", class: "submit-button"
         .footer
-          - if @error.present?
-            p.error = 'Your username and password are incorrect.<br/>Please try again!'.html_safe
+          - if @has_error
+            p.error 
+              | Your username and password are incorrect.
+              br
+              | Please try again!
           - flash.each do |type, message|
-            p.error = message
+            p.error= message

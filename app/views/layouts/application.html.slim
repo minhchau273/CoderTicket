@@ -9,17 +9,17 @@ html
   body
     nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse
       = link_to "Cheetah Ticket", root_path, class: "navbar-brand"
-      - unless current_user
-        ul.nav.navbar-nav
-          li.nav-item
-            = link_to "Sign In", login_path, class: "nav-link"
-          li.nav-item
-            = link_to "Sign Up", register_path, class: "nav-link"
-      - else
+      - if current_user
         ul.nav.navbar-nav.navbar-right
           li.nav-item
             a.nav-link href="#"
               | Welcome #{current_user.email}
           li.nav-item
             = link_to "Sign Out", logout_path, method: :delete, class: "nav-link"
+      - else
+        ul.nav.navbar-nav
+          li.nav-item
+            = link_to "Sign In", login_path, class: "nav-link"
+          li.nav-item
+            = link_to "Sign Up", register_path, class: "nav-link"
     = yield

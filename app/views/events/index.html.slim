@@ -5,7 +5,7 @@
     form
       input.form-control type="text" name="search" placeholder="Search for events, shows, courses..."
 .container-fluid.events-list
-  - @events.in_groups_of(3) do |g|
+  - @events.in_groups_of(3) do |group|
     .row
-      - g.compact.each do |e|
-        = render partial: 'card', locals: { event: e }
+      - group.compact.each do |event|
+        = render partial: 'card', locals: { event: event }
