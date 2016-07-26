@@ -2,7 +2,7 @@
   .row.no-pad
     .col-md-3.sidebar
       p
-        = fa_icon 'ticket'
+        = fa_icon "ticket"
         |  Price 
       h1
         |  Hot Events 
@@ -12,7 +12,7 @@
             .col-md-6
               = ticket_type.name
             .col-md-6.price.text-right
-              = number_to_currency(ticket_type.price, unit: 'VND', precision: 0)
+              = number_to_currency(ticket_type.price, unit: "VND", precision: 0)
           .clearfix
         = link_to new_event_ticket_path(@event) do
           button.btn.btn-lg.btn-block.btn-danger
@@ -23,16 +23,16 @@
       h3
         = @event.name
       .pull-left
-        = fa_icon 'clock-o'
+        = fa_icon "clock-o"
       .time-details
         = @event.starts_at_to_string
       .pull-left
-        = fa_icon 'map-marker'
+        = fa_icon "map-marker"
       .venue-details
         = @event.venue.name
         br
         = @event.venue.full_address
       .img-spacer
-        = image_tag 'shadow-top.png'
+        = image_tag "shadow-top.png"
       .extended-description
         = @event.extended_html_description.html_safe
