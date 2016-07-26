@@ -2,11 +2,10 @@ require "rails_helper"
 
 RSpec.describe SessionsController, type: :controller do
   describe "GET #new" do
-    let(:user) { create(:user) }
-
     context "user has already logged in" do
+      login
+
       before do
-        session[:user_id] = user.id
         get :new
       end
 
@@ -17,28 +16,27 @@ RSpec.describe SessionsController, type: :controller do
 
     context "user hasn't logged in yet" do
       before do
-        session[:user_id] = nil
         get :new
       end
 
       it "shows Login page" do
+        expect(response).to be_success
         expect(response).to render_template :new
       end
     end
   end
 
   describe "POST #create" do
-    let(:user) { build(:user) }
+    let(:user) { create(:user) }
+
+    before do
+      post :create, session: session_params
+    end
 
     context "invalid user" do
       context "user inputs invalid email" do
         let(:invalid_email) { "abc@ab.com" }
-
-        before do
-          post :create, session: {
-            email: invalid_email
-          }
-        end
+        let(:session_params) {{ email: invalid_email }}
 
         it "redirects to Login page" do
           expect(response).to redirect_to login_path(error: true)
@@ -47,14 +45,7 @@ RSpec.describe SessionsController, type: :controller do
 
       context "user inputs valid email and incorrect password" do
         let(:incorrect_password) { "123456" }
-
-        before do
-          user.save
-          post :create, session: {
-            email: user.email,
-            password: incorrect_password
-          }
-        end
+        let(:session_params) {{ email: user.email, password: incorrect_password }}
 
         it "redirects to Login page" do
           expect(response).to redirect_to login_path(error: true)
@@ -64,26 +55,20 @@ RSpec.describe SessionsController, type: :controller do
 
     context "valid user" do
       context "user inputs valid email and correct password" do
-        before do
-          user.save
-          post :create, session: {
-            email: user.email,
-            password: user.password
-          }
-        end
+        let(:session_params) {{ email: user.email, password: user.password }}
 
         it "redirects to Home page" do
           expect(response).to redirect_to root_path
-          id = User.find_by_email(user.email).id
-          expect(session[:user_id]).to eq id
+          expect(session[:user_id]).to eq user.id
         end
       end
     end
   end
 
   describe "DELETE #destroy" do
+    login
+
     before do
-      session[:user_id] = 1
       delete :destroy
     end
 
