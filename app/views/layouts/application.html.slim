@@ -21,5 +21,5 @@ html
             a.nav-link href="#"
               | Welcome #{current_user.email}
           li.nav-item
-            = link_to "Sign Out", logout_path, class: "nav-link"
+            = link_to "Sign Out", logout_path, method: :delete, class: "nav-link"
     = yield

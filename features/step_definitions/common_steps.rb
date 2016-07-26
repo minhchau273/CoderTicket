@@ -1,5 +1,5 @@
 Given "I am at Home page" do
-  visit '/'
+  visit root_path
 end
 
 When(/^I click "(.*?)"$/) do |button|
