@@ -8,10 +8,10 @@ html
     .container
       .login
         .back-home
-          a href="/" Back to Home page
+          = link_to "Back to Home page", root_path
         .tabs
           span
-            a.inactive href="/login" SIGN IN
+            = link_to "SIGN IN", login_path, class: "inactive"
           span
             a href="#" SIGN UP
         = form_for(@user) do |f|

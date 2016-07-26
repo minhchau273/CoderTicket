@@ -8,12 +8,12 @@ html
     .container
       .login
         .back-home
-          a href="/" Back to Home page
+          = link_to "Back to Home page", root_path
         .tabs
           span
             a href="#" SIGN IN
           span
-            a.inactive href="/register" SIGN UP
+            = link_to "SIGN UP", register_path, class: "inactive"
         = form_for(:session, url: login_path) do |f|
           ul
             li
