@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       flash.now[:error] = "Error: #{@user.errors.full_messages.to_sentence}"
-      render 'new', layout: false
+      render "new", layout: false
     end
   end
 
