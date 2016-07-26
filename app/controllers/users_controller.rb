@@ -8,10 +8,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to "/"
+      redirect_to root_path
     else
       flash.now[:error] = "Error: #{@user.errors.full_messages.to_sentence}"
-      render 'new', layout: false
+      render "new", layout: false
     end
   end
 

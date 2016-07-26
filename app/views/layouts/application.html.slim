@@ -3,26 +3,23 @@ html
   head
     title
       | Cheetah Ticket
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   body
     nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse
-      a.navbar-brand href="#{root_path}" Cheetah Ticket
-      - unless current_user
-        ul.nav.navbar-nav
-          li.nav-item
-            a.nav-link href="/login"
-              | Sign In
-          li.nav-item
-            a.nav-link href="/register"
-              | Sign Up
-      - else
+      = link_to "Cheetah Ticket", root_path, class: "navbar-brand"
+      - if current_user
         ul.nav.navbar-nav.navbar-right
           li.nav-item
             a.nav-link href="#"
               | Welcome #{current_user.email}
           li.nav-item
-            a.nav-link href="/logout"
-              | Sign Out
+            = link_to "Sign Out", logout_path, method: :delete, class: "nav-link"
+      - else
+        ul.nav.navbar-nav
+          li.nav-item
+            = link_to "Sign In", login_path, class: "nav-link"
+          li.nav-item
+            = link_to "Sign Up", register_path, class: "nav-link"
     = yield
