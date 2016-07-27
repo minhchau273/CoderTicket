@@ -10,6 +10,14 @@ class Event < ActiveRecord::Base
     starts_at.strftime(FULL_DATE_FORMAT)
   end
 
+  def starts_at_to_month
+    starts_at.strftime(FULL_MONTH_FORMAT)
+  end
+
+  def starts_at_to_day
+    starts_at.strftime(DAY_FORMAT)
+  end
+
   def region_name
     venue.region.name
   end

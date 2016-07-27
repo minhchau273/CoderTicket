@@ -94,29 +94,73 @@
     }
 
     .card-text {
-      min-height: 50px;
+      display: flex;
 
       .col-sm-9 {
         padding-left: 0;
 
         .min-price {
           margin-bottom: 10px;
+          color: $dusty_gray_color;
 
           .price {
             font-weight: bold;
+            color: $dove_gray_color;
           }
         }
 
-        .region {
-          display: inline;
-          margin-right: 20px;
-          padding: 0px 5px 0px 5px;
-          border: 1px solid gray;
-          border-radius: 3px;
+        .details {
+          margin-bottom: 0px;
+          color: $dove_gray_color;
+
+          .region {
+            display: inline;
+            margin-right: 20px;
+            padding: 0px 5px 0px 5px;
+            border: 1px solid $dove_gray_color;
+            border-radius: 3px;
+          }
+
+          .category {
+            padding-left: 5px;
+          }
         }
 
-        .category {
-          padding-left: 5px;
+      }
+
+      .col-sm-3 {
+        .icon_calendar {
+          position: absolute;
+          width: 70px;
+          height: 70px;
+          right: 0;
+          margin-top: -10px;
+          border-radius: 18px;
+          background-color: $seashell_color;
+          border: 2px solid $silver_color;
+          cursor: pointer;
+          color: $carnation_color;
+          overflow: hidden;
+          transition:all 0.2s;
+
+          .month_wrap {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            line-height: 30px;
+            transition:all 0.1s;
+            color: $carnation_color;
+            font-size: 13px;
+          }
+
+          .days_wrap {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 25px;
+            color: $dove_gray_color;
+            font-size: 30px;
+          }
         }
       }
     }

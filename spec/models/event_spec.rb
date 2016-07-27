@@ -26,6 +26,26 @@ RSpec.describe Event, type: :model do
     end
   end
 
+  describe "starts_at_to_month" do
+    let(:start_time) { DateTime.new(2016, 7, 7, 8, 0, 0) }
+    let(:event) { create(:event, starts_at: start_time) }
+    let(:expected_date_string) { "July" }
+
+    it "returns starts_at as string with full month format" do
+      expect(event.starts_at_to_month).to eq expected_date_string
+    end
+  end
+
+  describe "starts_at_to_day" do
+    let(:start_time) { DateTime.new(2016, 7, 7, 8, 0, 0) }
+    let(:event) { create(:event, starts_at: start_time) }
+    let(:expected_date_string) { "07" }
+
+    it "returns starts_at as string with day format" do
+      expect(event.starts_at_to_day).to eq expected_date_string
+    end
+  end
+
   describe "region_name" do
     let(:event) { create(:event) }
     let(:expected_region) { event.venue.region.name }

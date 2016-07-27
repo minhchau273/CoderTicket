@@ -19,3 +19,9 @@
               = fa_icon "hashtag"
               span.category
                 = event.category.name
+          .col-sm-3
+            .icon_calendar
+              .month_wrap
+                = event.starts_at_to_month
+              .days_wrap
+                = event.starts_at_to_day
