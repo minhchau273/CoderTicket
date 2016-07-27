@@ -13,7 +13,6 @@ RSpec.describe Event, type: :model do
     it { is_expected.to validate_presence_of :venue }
     it { is_expected.to validate_presence_of :category }
     it { is_expected.to validate_presence_of :starts_at }
-    subject { build(:event) }
     it { is_expected.to validate_uniqueness_of(:name).scoped_to(:venue_id, :starts_at) }
   end
 
