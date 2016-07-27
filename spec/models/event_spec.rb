@@ -24,4 +24,46 @@ RSpec.describe Event, type: :model do
       expect(event.starts_at_to_s).to eq expected_date_string
     end
   end
+
+  describe "region_name" do
+    let(:event) { create(:event) }
+    let(:expected_region) { event.venue.region.name }
+
+    it "returns region of this event" do
+      expect(event.region_name).to eq expected_region
+    end
+  end
+
+  describe "min_price" do
+    let(:event) { create(:event) }
+    let(:price_1) { 100000 }
+    let(:ticket_type_1) { create(:ticket_type, price: price_1) }
+
+    context "there is 1 ticket type" do
+      before do
+        ticket_type_1.event = event
+        ticket_type_1.save
+      end
+
+      it "returns the price of this type" do
+        expect(event.min_price).to eq price_1
+      end
+    end
+
+    context "there are more than 1 ticket type" do
+      let(:price_2) { 50000 }
+      let(:ticket_type_2) { create(:ticket_type, price: price_2, event_id: event.id) }
+
+      before do
+        ticket_type_1.event = event
+        ticket_type_2.event = event
+        ticket_type_1.save
+        ticket_type_2.save
+      end
+
+      it "returns the min price of these types" do
+        expect(event.min_price).to eq price_2
+      end
+    end
+  end
 end

@@ -92,6 +92,34 @@
       font-size: 18px;
       font-weight: bold;
     }
+
+    .card-text {
+      min-height: 50px;
+
+      .col-sm-9 {
+        padding-left: 0;
+
+        .min-price {
+          margin-bottom: 10px;
+
+          .price {
+            font-weight: bold;
+          }
+        }
+
+        .region {
+          display: inline;
+          margin-right: 20px;
+          padding: 0px 5px 0px 5px;
+          border: 1px solid gray;
+          border-radius: 3px;
+        }
+
+        .category {
+          padding-left: 5px;
+        }
+      }
+    }
   }
 
   a {

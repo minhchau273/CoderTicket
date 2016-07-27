@@ -9,4 +9,12 @@ class Event < ActiveRecord::Base
   def starts_at_to_s
     starts_at.strftime(FULL_DATE_FORMAT)
   end
+
+  def region_name
+    venue.region.name
+  end
+
+  def min_price
+    ticket_types.map { |type| type.price  }.min
+  end
 end
