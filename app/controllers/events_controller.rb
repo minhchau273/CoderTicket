@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.all    
+    @events = Event.where('starts_at > ?', DateTime.current).order(:starts_at)
   end
 
   def show
