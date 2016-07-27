@@ -17,7 +17,8 @@ RSpec.describe Event, type: :model do
   end
 
   describe "starts_at_to_s" do
-    let(:event) { create(:event) }
+    let(:start_time) { DateTime.new(2016, 7, 7, 8, 0, 0) }
+    let(:event) { create(:event, starts_at: start_time) }
     let(:expected_date_string) { "Thursday, 07 Jul 2016  8:00 AM" }
 
     it "returns starts_at as string with full date format" do
