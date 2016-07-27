@@ -82,13 +82,18 @@
 
 .events-detail {
   .sidebar {
-    padding-top: 80px;
-    color: $athens_gray_color;
-    background-color: $limed_spruce_color;
-    float: left;
     position: fixed;
+    float: left;
+    padding-top: 80px;
     min-height: 700px;
     height: 100%;
+    color: $athens_gray_color;
+    background-color: $limed_spruce_color;
+
+    h1 {
+      margin-left: 10px;
+      font-family: cursive;
+    }
 
     p {
       text-align: center;
@@ -102,9 +107,12 @@
     }
 
     .ticket-list {
-      padding-left: 40px;
-      padding-right: 40px;
+      margin: 40px 40px 0px 40px;
       font-size: 14px;
+
+      .row {
+        margin-bottom: 10px;
+      }
 
       button {
         margin-top: 40px;
@@ -136,12 +144,12 @@
     }
 
     .container {
-      margin-left: 50px;
       margin-top: 30px;
+      margin-left: 50px;
 
       .time-details, .venue-details {
-        margin-left: 20px;
         margin-bottom: 20px;
+        margin-left: 20px;
       }
 
       .img-spacer {
