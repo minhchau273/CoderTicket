@@ -1,5 +1,7 @@
 class Category < ActiveRecord::Base
-  validates :name, inclusion: { in: ["Entertainment", "Learning", "Everything Else"] }
+  NAMES = ["Entertainment", "Learning", "Everything Else"]
+
+  validates :name, inclusion: { in: NAMES }
   validates :name, uniqueness: true
   validates :name, presence: true
 end
