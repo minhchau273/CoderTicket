@@ -59,8 +59,28 @@
   .card {
     margin-bottom: 20px;
 
-    img {
-      max-width: 100%;
+    .cover:before {
+      content: "";
+      display: block;
+      padding-top: 50%;  /* ratio of 2:1*/
+    }
+
+    .cover {
+      position: relative;
+      width: 100%; 
+
+      .cover-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
 
     &:hover {

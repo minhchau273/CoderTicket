@@ -1,7 +1,9 @@
 .col-md-6
   = link_to event_path(event) do
     .card
-      img src="#{event.hero_image_url}"
+      .cover
+        .cover-content
+          img src="#{event.hero_image_url}"
       .card-block
         h4.card-title
           = event.name
