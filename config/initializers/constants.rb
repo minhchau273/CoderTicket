@@ -1,5 +1,6 @@
 # Error messages
-SIGN_UP_WITH_INVALID_EMAIL_ERROR = "Error: Email is invalid"
+EMAIL_NOT_FOUND_ERROR = "Email is not found."
+PASSWORD_NOT_MATCH = "Password does not match."
 SIGN_UP_WITH_INCORRECT_PASSWORD_CONFIRMATION_ERROR = "Error: Password confirmation doesn't match Password"
 LOGIN_FAIL_ERROR = "Your username and password are incorrect."
 

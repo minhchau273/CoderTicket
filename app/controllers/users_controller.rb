@@ -1,15 +1,14 @@
 class UsersController < ApplicationController
-  layout 'authentication'
+  layout "authentication"
 
   def new
-    build_user
+    @user = User.new
   end
 
   def create
-    build_user
-    if @user.save
+    if (@user = User.new(user_params)).save
       session[:user_id] = @user.id
-      redirect_to root_path, notice: "Signed up successfully. Welcome!"
+      redirect_to root_path
     else
       render "new"
     end
@@ -18,10 +17,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation) if params[:user]
-  end
-
-  def build_user
-    @user = User.new(user_params)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end

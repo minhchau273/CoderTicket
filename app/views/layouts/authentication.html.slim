@@ -11,7 +11,7 @@ html
           = link_to "Back to Home page", root_path
         .tabs
           span
-            = link_to "SIGN IN", login_path, class: ('inactive' unless current_page?(login_path))
+            = link_to "SIGN IN", login_path, class: ("inactive" unless controller_name == "sessions")
           span
-            = link_to "SIGN UP", register_path, class: ('inactive' unless current_page?(register_path))
+            = link_to "SIGN UP", register_path, class: ("inactive" unless controller_name == "users")
         = yield
