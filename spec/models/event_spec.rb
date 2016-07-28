@@ -21,6 +21,16 @@ RSpec.describe Event, type: :model do
     it { is_expected.to delegate_method(:region_name).to(:venue) }
   end
 
+  describe "scopes" do
+    describe ".upcoming" do
+      include_context 'three standard events'
+
+      it "returns upcoming events" do
+        expect(Event.upcoming).to eq [event_3, event_1]
+      end
+    end
+  end
+
   describe "#starts_at_to_s" do
     let(:event) { create(:event, starts_at: DateTime.new(2016, 7, 7, 8, 0, 0)) }
     let(:expected_date_string) { "Thursday, 07 Jul 2016  8:00 AM" }

@@ -6,6 +6,8 @@ class Event < ActiveRecord::Base
   validates :name, :extended_html_description, :venue, :category, :starts_at, presence: true
   validates :name, uniqueness: { scope: [:venue_id, :starts_at] }
 
+  scope :upcoming, -> { where('starts_at > ?', DateTime.current).order(:starts_at) }
+
   delegate :name, to: :category, prefix: true
   delegate :region_name, to: :venue
 
