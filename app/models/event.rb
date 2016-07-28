@@ -24,6 +24,6 @@ class Event < ActiveRecord::Base
   end
 
   def min_price
-    ticket_types.map { |type| type.price  }.min
+    ticket_types.minimum(:price)
   end
 end
