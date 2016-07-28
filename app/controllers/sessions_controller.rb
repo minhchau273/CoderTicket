@@ -1,20 +1,17 @@
 class SessionsController < ApplicationController
+  layout 'authentication'
+
   def new
-    if current_user
-      redirect_to root_path
-    else
-      @has_error = params[:error].present?
-      render layout: false
-    end
+    build_sign_in
   end
 
   def create
-    @user = User.find_by_email(session_params[:email])
-    if @user && @user.authenticate(session_params[:password])
-      session[:user_id] = @user.id
-      redirect_to root_path
+    build_sign_in
+    if @sign_in.valid?
+      session[:user_id] = @sign_in.user_id
+      redirect_to root_path, notice: "Signed in successfullly."
     else
-      redirect_to login_path(error: true)
+      render 'new'
     end
   end
 
@@ -25,7 +22,11 @@ class SessionsController < ApplicationController
 
   private
 
-  def session_params
-    params.require(:session).permit(:email, :password)
+  def build_sign_in
+    @sign_in = SignIn.new sign_in_params
+  end
+
+  def sign_in_params
+    params.require(:sign_in).permit(:email, :password) if params[:sign_in]
   end
 end

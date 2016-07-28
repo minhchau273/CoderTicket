@@ -1,0 +1,5 @@
+- unless errors.empty?
+  .alert.alert-danger
+    ul style="list-style-type: none"
+      - errors.full_messages.each do |msg|
+        li = msg
