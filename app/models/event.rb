@@ -6,6 +6,9 @@ class Event < ActiveRecord::Base
   validates :name, :extended_html_description, :venue, :category, :starts_at, presence: true
   validates :name, uniqueness: { scope: [:venue_id, :starts_at] }
 
+  delegate :name, to: :category, prefix: true
+  delegate :region_name, to: :venue
+
   def starts_at_to_s
     starts_at.strftime(FULL_DATE_FORMAT)
   end
@@ -16,10 +19,6 @@ class Event < ActiveRecord::Base
 
   def starts_at_to_day
     starts_at.strftime(DAY_FORMAT)
-  end
-
-  def region_name
-    venue.region.name
   end
 
   def min_price

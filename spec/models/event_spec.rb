@@ -16,9 +16,13 @@ RSpec.describe Event, type: :model do
     it { is_expected.to validate_uniqueness_of(:name).scoped_to(:venue_id, :starts_at) }
   end
 
-  describe "starts_at_to_s" do
-    let(:start_time) { DateTime.new(2016, 7, 7, 8, 0, 0) }
-    let(:event) { create(:event, starts_at: start_time) }
+  describe "delegates" do
+    it { is_expected.to delegate_method(:name).to(:category).with_prefix(true) }
+    it { is_expected.to delegate_method(:region_name).to(:venue) }
+  end
+
+  describe "#starts_at_to_s" do
+    let(:event) { create(:event, starts_at: DateTime.new(2016, 7, 7, 8, 0, 0)) }
     let(:expected_date_string) { "Thursday, 07 Jul 2016  8:00 AM" }
 
     it "returns starts_at as string with full date format" do
@@ -26,9 +30,8 @@ RSpec.describe Event, type: :model do
     end
   end
 
-  describe "starts_at_to_month" do
-    let(:start_time) { DateTime.new(2016, 7, 7, 8, 0, 0) }
-    let(:event) { create(:event, starts_at: start_time) }
+  describe "#starts_at_to_month" do
+    let(:event) { create(:event, starts_at: DateTime.new(2016, 7, 7, 8, 0, 0)) }
     let(:expected_date_string) { "July" }
 
     it "returns starts_at as string with full month format" do
@@ -36,9 +39,8 @@ RSpec.describe Event, type: :model do
     end
   end
 
-  describe "starts_at_to_day" do
-    let(:start_time) { DateTime.new(2016, 7, 7, 8, 0, 0) }
-    let(:event) { create(:event, starts_at: start_time) }
+  describe "#starts_at_to_day" do
+    let(:event) { create(:event, starts_at: DateTime.new(2016, 7, 7, 8, 0, 0)) }
     let(:expected_date_string) { "07" }
 
     it "returns starts_at as string with day format" do
@@ -46,41 +48,30 @@ RSpec.describe Event, type: :model do
     end
   end
 
-  describe "region_name" do
-    let(:event) { create(:event) }
-    let(:expected_region) { event.venue.region.name }
+  describe "#region_name" do
+    let(:region_name) { Region::NAMES.last }
+    let(:venue) { create(:venue, region: Region.find_by(name: region_name)) }
+    let(:event) { create(:event, venue: venue) }
 
     it "returns region of this event" do
-      expect(event.region_name).to eq expected_region
+      expect(event.region_name).to eq region_name
     end
   end
 
-  describe "min_price" do
+  describe "#min_price" do
     let(:event) { create(:event) }
-    let(:price_1) { 100000 }
-    let(:ticket_type_1) { create(:ticket_type, price: price_1) }
+    let(:price_1) { 100_000 }
+    let!(:ticket_type_1) { create(:ticket_type, price: price_1, event: event) }
 
     context "there is 1 ticket type" do
-      before do
-        ticket_type_1.event = event
-        ticket_type_1.save
-      end
-
       it "returns the price of this type" do
         expect(event.min_price).to eq price_1
       end
     end
 
     context "there are more than 1 ticket type" do
-      let(:price_2) { 50000 }
-      let(:ticket_type_2) { create(:ticket_type, price: price_2, event_id: event.id) }
-
-      before do
-        ticket_type_1.event = event
-        ticket_type_2.event = event
-        ticket_type_1.save
-        ticket_type_2.save
-      end
+      let(:price_2) { 50_000 }
+      let!(:ticket_type_2) { create(:ticket_type, price: price_2, event: event) }
 
       it "returns the min price of these types" do
         expect(event.min_price).to eq price_2
