@@ -4,4 +4,10 @@ class Region < ActiveRecord::Base
   validates :name, inclusion: { in: NAMES }
   validates :name, uniqueness: true
   validates :name, presence: true
+
+  def self.create_all
+    NAMES.each do |name|
+      Region.find_or_create_by!(name: name)
+    end
+  end
 end

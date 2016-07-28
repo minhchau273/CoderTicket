@@ -4,4 +4,10 @@ class Category < ActiveRecord::Base
   validates :name, inclusion: { in: NAMES }
   validates :name, uniqueness: true
   validates :name, presence: true
+
+  def self.create_all
+    NAMES.each do |name|
+      Category.find_or_create_by!(name: name)
+    end
+  end
 end

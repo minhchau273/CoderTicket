@@ -11,5 +11,5 @@ Feature: View upcoming events at Home page
     And I can see list of upcoming events ordered by started time
 
   Scenario: View event details
-    When I click "Event 1"
-    Then I can see "Event 1"
+    When I click on an event
+    Then I can see the event's name

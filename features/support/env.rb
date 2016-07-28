@@ -58,3 +58,8 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 World(FactoryGirl::Syntax::Methods)
+
+Before do
+  Category.create_all
+  Region.create_all
+end
