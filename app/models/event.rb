@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
   belongs_to :venue
   belongs_to :category
+
   has_many :ticket_types
 
   validates :name, :extended_html_description, :venue, :category, :starts_at, presence: true

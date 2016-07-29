@@ -140,14 +140,12 @@
           cursor: pointer;
           color: $carnation_color;
           overflow: hidden;
-          transition: all 0.2s;
 
           .month_wrap {
             position: absolute;
             width: 100%;
             text-align: center;
             line-height: 30px;
-            transition: all 0.1s;
             color: $carnation_color;
             font-size: 13px;
           }

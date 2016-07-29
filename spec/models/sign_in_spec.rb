@@ -51,25 +51,21 @@ RSpec.describe SignIn, type: :model do
 
   describe "#initialize" do
     context "new object without params" do
-      before do
-        @sign_in = SignIn.new
-      end
+      let(:sign_in) { SignIn.new }
 
       it "new a sign_in object with empty email and empty password" do
-        expect(@sign_in.email).to be_nil
-        expect(@sign_in.password).to be_nil
+        expect(sign_in.email).to be_nil
+        expect(sign_in.password).to be_nil
       end
     end
 
     context "new object with params" do
       let(:sign_in_params) {{ email: email, password: password }}
-      before do
-        @sign_in = SignIn.new(sign_in_params)
-      end
+      let(:sign_in) { SignIn.new(sign_in_params) }
 
       it "new a sign_in object with assigned email and assigned password" do
-        expect(@sign_in.email).to eq email
-        expect(@sign_in.password).to eq password
+        expect(sign_in.email).to eq email
+        expect(sign_in.password).to eq password
       end
     end
   end
@@ -78,7 +74,7 @@ RSpec.describe SignIn, type: :model do
     let!(:user) { create(:user, email: email) }
 
     context "this email exists" do
-      let(:sign_in) { SignIn.new({ email: email }) }
+      let(:sign_in) { SignIn.new(email: email) }
 
       it "returns user having this email" do
         expect(sign_in.user).to eq user
@@ -86,7 +82,7 @@ RSpec.describe SignIn, type: :model do
     end
 
     context "this email does not exist" do
-      let(:sign_in) { SignIn.new({ email: incorrect_email }) }
+      let(:sign_in) { SignIn.new(email: incorrect_email) }
 
       it "returns nil" do
         expect(sign_in.user).to be_nil

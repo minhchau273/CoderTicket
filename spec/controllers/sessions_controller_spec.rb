@@ -34,31 +34,19 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     context "invalid user" do
-      context "user inputs invalid email" do
-        let(:sign_in_params) {{ email: "abc@ab.com" }}
+      let(:sign_in_params) {{ email: "abc@ab.com" }}
 
-        it "renders Login page" do
-          expect(response).to render_template "authentication"
-        end
-      end
-
-      context "user inputs valid email and incorrect password" do
-        let(:sign_in_params) {{ email: user.email, password: "123456" }}
-
-        it "renders Login page" do
-          expect(response).to render_template "authentication"
-        end
+      it "renders Login page" do
+        expect(response).to render_template "authentication"
       end
     end
 
     context "valid user" do
-      context "user inputs valid email and correct password" do
-        let(:sign_in_params) {{ email: user.email, password: user.password }}
+      let(:sign_in_params) {{ email: user.email, password: user.password }}
 
-        it "redirects to Home page" do
-          expect(response).to redirect_to root_path
-          expect(session[:user_id]).to eq user.id
-        end
+      it "redirects to Home page" do
+        expect(response).to redirect_to root_path
+        expect(session[:user_id]).to eq user.id
       end
     end
   end

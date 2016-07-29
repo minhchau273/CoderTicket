@@ -1,9 +1,7 @@
 class Region < ActiveRecord::Base
   NAMES = ["Ho Chi Minh", "Ha Noi", "Binh Thuan", "Da Nang", "Lam Dong"]
 
-  validates :name, inclusion: { in: NAMES }
-  validates :name, uniqueness: true
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true, inclusion: { in: NAMES }
 
   def self.create_all
     NAMES.each do |name|

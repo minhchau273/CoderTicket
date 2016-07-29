@@ -6,6 +6,6 @@ FactoryGirl.define do
     hero_image_url { Faker::Avatar.image }
     extended_html_description "<h1>Test</h1>"
     venue
-    category { Category.first }
+    category Category.first
   end
 end
