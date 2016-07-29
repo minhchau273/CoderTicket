@@ -12,19 +12,18 @@ Feature: Sign in
     And I can see "Sign In"
     And I cannot see "Sign Out"
 
-  Scenario: Input invalid email
-    When I input invalid email to sign in
-    And I input correct password to sign in
+  Scenario Outline: Sign in failed
+    When I input <email> to email field
+    And I input <password> to password field
     When I click "Sign In"
-    Then I can see email not found error message
+    Then I can see <message>
 
-  Scenario: Input valid email and incorrect password
-    When I input valid email to sign in
-    And I input incorrect password to sign in
-    When I click "Sign In"
-    Then I can see incorrect password error message
+    Examples:
+    | email           | password | message                   |
+    | cheetah.zxc.com | 123123   | "Email is not found"      |
+    | cheetah@cs.com  | 123456   | "Password does not match" |
 
-  Scenario: Input valid email and correct password
+  Scenario: Sign in successfully
     When I input valid email to sign in
     And I input correct password to sign in
     When I click "Sign In"

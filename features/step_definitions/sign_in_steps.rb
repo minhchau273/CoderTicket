@@ -1,7 +1,9 @@
 VALID_EMAIL = "cheetah@cs.com"
-INVALID_EMAIL = "cheetah.zxc.com"
 CORRECT_PASSWORD = "123123"
-INCORRECT_PASSWORD = "123456"
+SIGN_IN_FIELDS = {
+    email: "sign_in_email",
+    password: "sign_in_password"
+}
 
 Given "I am at Login page" do
   visit login_path
@@ -11,30 +13,18 @@ And "There is a registered user" do
   create(:user, email: VALID_EMAIL)
 end
 
-When "I input invalid email to sign in" do
-  fill_in "sign_in_email", with: INVALID_EMAIL
-end
-
 When "I input valid email to sign in" do
   fill_in "sign_in_email", with: VALID_EMAIL
-end
-
-And "I input incorrect password to sign in" do
-  fill_in "sign_in_password", with: INCORRECT_PASSWORD
 end
 
 And "I input correct password to sign in" do
   fill_in "sign_in_password", with: CORRECT_PASSWORD
 end
 
-Then "I can see email not found error message" do
-  step "I can see \"#{EMAIL_NOT_FOUND_ERROR}\""
-end
-
-Then "I can see incorrect password error message" do
-  step "I can see \"#{PASSWORD_NOT_MATCH}\""
-end
-
 And "I can see my email" do
   step "I can see \"#{VALID_EMAIL}\""
+end
+
+And "I input $value to $field field" do |value, field|
+  fill_in SIGN_IN_FIELDS[field.to_sym], with: value
 end
