@@ -16,13 +16,13 @@ Feature: Sign in
     When I input invalid email to sign in
     And I input correct password to sign in
     When I click "Sign In"
-    Then I can see error message
+    Then I can see email not found error message
 
   Scenario: Input valid email and incorrect password
     When I input valid email to sign in
     And I input incorrect password to sign in
     When I click "Sign In"
-    Then I can see error message
+    Then I can see incorrect password error message
 
   Scenario: Input valid email and correct password
     When I input valid email to sign in

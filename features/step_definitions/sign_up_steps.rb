@@ -28,11 +28,11 @@ And "I input incorrect password confirmation" do
   fill_in "user_password_confirmation", with: INCORRECT_PASSWORD
 end
 
-Then "I can see error message about invalid email" do
-  step "I can see \"#{SIGN_UP_WITH_INVALID_EMAIL_ERROR}\""
+Then "I can see invalid email error message" do
+  step "I can see \"#{INVALID_EMAIL_ERROR}\""
 end
 
-Then "I can see error message about incorrect password confirmation" do
+Then "I can see incorrect password confirmation error message" do
   step "I can see \"#{SIGN_UP_WITH_INCORRECT_PASSWORD_CONFIRMATION_ERROR}\""
 end
 

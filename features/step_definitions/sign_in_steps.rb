@@ -12,23 +12,27 @@ And "There is a registered user" do
 end
 
 When "I input invalid email to sign in" do
-  fill_in "session_email", with: INVALID_EMAIL
+  fill_in "sign_in_email", with: INVALID_EMAIL
 end
 
 When "I input valid email to sign in" do
-  fill_in "session_email", with: VALID_EMAIL
+  fill_in "sign_in_email", with: VALID_EMAIL
 end
 
 And "I input incorrect password to sign in" do
-  fill_in "session_password", with: INCORRECT_PASSWORD
+  fill_in "sign_in_password", with: INCORRECT_PASSWORD
 end
 
 And "I input correct password to sign in" do
-  fill_in "session_password", with: CORRECT_PASSWORD
+  fill_in "sign_in_password", with: CORRECT_PASSWORD
 end
 
-Then "I can see error message" do
-  step "I can see \"#{LOGIN_FAIL_ERROR}\""
+Then "I can see email not found error message" do
+  step "I can see \"#{EMAIL_NOT_FOUND_ERROR}\""
+end
+
+Then "I can see incorrect password error message" do
+  step "I can see \"#{PASSWORD_NOT_MATCH}\""
 end
 
 And "I can see my email" do

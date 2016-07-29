@@ -12,7 +12,7 @@ Feature: Sign up
     And I input password
     And I input correct password confirmation
     When I click "Create Account"
-    Then I can see error message about invalid email
+    Then I can see invalid email error message
 
   Scenario: Input incorrect password confirmation
     When I input username
@@ -20,7 +20,7 @@ Feature: Sign up
     And I input password
     And I input incorrect password confirmation
     When I click "Create Account"
-    Then I can see error message about incorrect password confirmation
+    Then I can see incorrect password confirmation error message
 
   Scenario: Input correct information
     When I input username
