@@ -18,21 +18,21 @@
           button.btn.btn-lg.btn-block.btn-danger
             |  BOOK NOW 
     .col-md-9.event-content
-      .hero-img.hidden-sm-down style=("background-image: url(#{event.hero_image_url}; background-size: cover")
-    .container
-      h3
-        = @event.name
-      .pull-left
-        = fa_icon "clock-o"
-      .time-details
-        = @event.starts_at_to_string
-      .pull-left
-        = fa_icon "map-marker"
-      .venue-details
-        = @event.venue.name
-        br
-        = @event.venue.full_address
-      .img-spacer
-        = image_tag "shadow-top.png"
-      .extended-description
-        = @event.extended_html_description.html_safe
+      .hero-img.hidden-sm-down style=("background-image: url(#{@event.hero_image_url}); background-size: cover")
+      .container
+        h3
+          = @event.name
+        .pull-left
+          = fa_icon "clock-o"
+        .time-details
+          = @event.starts_at_to_s
+        .pull-left
+          = fa_icon "map-marker"
+        .venue-details
+          = @event.venue.name
+          br
+          = @event.venue.full_address
+        .img-spacer
+          = image_tag "shadow-top.png"
+        .extended-description
+          = @event.extended_html_description.html_safe

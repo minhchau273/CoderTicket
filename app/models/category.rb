@@ -1,4 +1,11 @@
 class Category < ActiveRecord::Base
-  validates_inclusion_of :name, in: ["Entertainment", "Learning", "Everything Else"]
-  validates_uniqueness_of :name
+  NAMES = ["Entertainment", "Learning", "Everything Else"]
+
+  validates :name, presence: true, uniqueness: true, inclusion: { in: NAMES }
+
+  def self.create_all
+    NAMES.each do |name|
+      Category.find_or_create_by!(name: name)
+    end
+  end
 end

@@ -59,8 +59,28 @@
   .card {
     margin-bottom: 20px;
 
-    img {
-      max-width: 100%;
+    .cover:before {
+      content: "";
+      display: block;
+      padding-top: 50%;  /* ratio of 2:1*/
+    }
+
+    .cover {
+      position: relative;
+      width: 100%; 
+
+      .cover-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
 
     &:hover {
@@ -72,6 +92,75 @@
       font-size: 18px;
       font-weight: bold;
     }
+
+    .card-text {
+      display: flex;
+
+      .col-sm-9 {
+        padding-left: 0;
+
+        .min-price {
+          margin-bottom: 10px;
+          color: $dusty_gray_color;
+
+          .price {
+            font-weight: bold;
+            color: $dove_gray_color;
+          }
+        }
+
+        .details {
+          margin-bottom: 0px;
+          color: $dove_gray_color;
+
+          .region {
+            display: inline;
+            margin-right: 20px;
+            padding: 0px 5px 0px 5px;
+            border: 1px solid $dove_gray_color;
+            border-radius: 3px;
+          }
+
+          .category {
+            padding-left: 5px;
+          }
+        }
+      }
+
+      .col-sm-3 {
+        .icon_calendar {
+          position: absolute;
+          width: 70px;
+          height: 70px;
+          right: 0;
+          margin-top: -10px;
+          border-radius: 18px;
+          background-color: $seashell_color;
+          border: 2px solid $silver_color;
+          cursor: pointer;
+          color: $carnation_color;
+          overflow: hidden;
+
+          .month_wrap {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            line-height: 30px;
+            color: $carnation_color;
+            font-size: 13px;
+          }
+
+          .days_wrap {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 25px;
+            color: $dove_gray_color;
+            font-size: 30px;
+          }
+        }
+      }
+    }
   }
 
   a {
@@ -82,13 +171,18 @@
 
 .events-detail {
   .sidebar {
-    padding-top: 80px;
-    color: $athens_gray_color;
-    background-color: $limed_spruce_color;
-    float: left;
     position: fixed;
+    float: left;
+    padding-top: 80px;
     min-height: 700px;
     height: 100%;
+    color: $athens_gray_color;
+    background-color: $limed_spruce_color;
+
+    h1 {
+      margin-left: 10px;
+      font-family: cursive;
+    }
 
     p {
       text-align: center;
@@ -102,9 +196,12 @@
     }
 
     .ticket-list {
-      padding-left: 40px;
-      padding-right: 40px;
+      margin: 40px 40px 0px 40px;
       font-size: 14px;
+
+      .row {
+        margin-bottom: 10px;
+      }
 
       button {
         margin-top: 40px;
@@ -136,12 +233,12 @@
     }
 
     .container {
-      margin-left: 50px;
       margin-top: 30px;
+      margin-left: 50px;
 
       .time-details, .venue-details {
-        margin-left: 20px;
         margin-bottom: 20px;
+        margin-left: 20px;
       }
 
       .img-spacer {

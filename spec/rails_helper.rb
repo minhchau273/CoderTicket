@@ -19,6 +19,9 @@ RSpec.configure do |config|
   config.before :suite do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
+
+    Category.create_all
+    Region.create_all
   end
 
   config.around :each do |example|

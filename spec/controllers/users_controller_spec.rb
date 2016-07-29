@@ -42,9 +42,8 @@ RSpec.describe UsersController, type: :controller do
         }
       end
 
-      it "shows error" do
-        expect(response).to render_template :new
-        expect(flash["error"]).to eq SIGN_UP_WITH_INVALID_EMAIL_ERROR
+      it "renders Register page" do
+        expect(response).to render_template "authentication"
       end
     end
   end

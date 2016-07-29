@@ -1,34 +1,17 @@
-doctype html
-html
-  head
-    title Cheetah Ticket
-    == stylesheet_link_tag "users", media: "all", "data-turbolinks-track" => true
-    == csrf_meta_tags
-  body
-    .container
-      .login
-        .back-home
-          = link_to "Back to Home page", root_path
-        .tabs
-          span
-            = link_to "SIGN IN", login_path, class: "inactive"
-          span
-            a href="#" SIGN UP
-        = form_for(@user) do |f|
-          ul
-            li
-              = f.text_field :name, class: "label-float", required: ""
-              label.floating USERNAME
-            li
-              = f.text_field :email, class: "label-float", required: ""
-              label.floating EMAIL
-            li
-              = f.password_field :password, class: "label-float", required: ""
-              label.floating PASSWORD
-            li
-              = f.password_field :password_confirmation, class: "label-float", required: ""
-              label.floating PASSWORD CONFIRMATION
-          = f.submit "Create Account", class: "submit-button"
-        .footer
-          - flash.each do |type, message|
-            p.error= message
+= form_for(@user) do |f|
+  ul
+    li
+      = f.text_field :name, class: "label-float", required: ""
+      label.floating USERNAME
+    li
+      = f.text_field :email, class: "label-float", required: ""
+      label.floating EMAIL
+    li
+      = f.password_field :password, class: "label-float", required: ""
+      label.floating PASSWORD
+    li
+      = f.password_field :password_confirmation, class: "label-float", required: ""
+      label.floating PASSWORD CONFIRMATION
+  = f.submit "Create Account", class: "submit-button"
+.footer
+  = render "layouts/form_errors", errors: @user.errors
