@@ -1,33 +1,11 @@
-doctype html
-html
-  head
-    title Cheetah Ticket
-    == stylesheet_link_tag "users", media: "all", "data-turbolinks-track" => true
-    == csrf_meta_tags
-  body
-    .container
-      .login
-        .back-home
-          = link_to "Back to Home page", root_path
-        .tabs
-          span
-            a href="#" SIGN IN
-          span
-            = link_to "SIGN UP", register_path, class: "inactive"
-        = form_for(:session, url: login_path) do |f|
-          ul
-            li
-              = f.text_field :email, class: "label-float", required: ""
-              label.floating EMAIL
-            li
-              = f.password_field :password, class: "label-float", required: ""
-              label.floating PASSWORD
-          = f.submit "Sign In", class: "submit-button"
-        .footer
-          - if @has_error
-            p.error 
-              | Your username and password are incorrect.
-              br
-              | Please try again!
-          - flash.each do |type, message|
-            p.error= message
+= form_for(@sign_in, url: login_path) do |f|
+  ul
+    li
+      = f.text_field :email, class: "label-float"
+      label.floating EMAIL
+    li
+      = f.password_field :password, class: "label-float"
+      label.floating PASSWORD
+  = f.submit "Sign In", class: "submit-button"
+.footer
+  = render "layouts/form_errors", errors: @sign_in.errors

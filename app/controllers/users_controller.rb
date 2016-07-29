@@ -1,17 +1,16 @@
 class UsersController < ApplicationController
+  layout "authentication"
+
   def new
     @user = User.new
-    render layout: false
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
+    if (@user = User.new(user_params)).save
       session[:user_id] = @user.id
       redirect_to root_path
     else
-      flash.now[:error] = "Error: #{@user.errors.full_messages.to_sentence}"
-      render "new", layout: false
+      render "new"
     end
   end
 

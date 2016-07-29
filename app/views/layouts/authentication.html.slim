@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Cheetah Ticket
+    == stylesheet_link_tag "users", media: "all", "data-turbolinks-track" => true
+    == csrf_meta_tags
+  body
+    .container
+      .login
+        .back-home
+          = link_to "Back to Home page", root_path
+        .tabs
+          span
+            = link_to "SIGN IN", login_path, class: ("inactive" unless controller_name == "sessions")
+          span
+            = link_to "SIGN UP", register_path, class: ("inactive" unless controller_name == "users")
+        = yield

@@ -6,23 +6,20 @@ Feature: Sign up
     Given I am at Register page
     And There is a registered user
 
-  Scenario: Input invalid email
-    When I input username
-    And I input invalid email
-    And I input password
-    And I input correct password confirmation
+  Scenario Outline: Sign up failed
+    When I input <username> to username field to register
+    And I input <email> to email field to register
+    And I input <password> to password field to register
+    And I input <confirmed_password> to confirmed_password field to register
     When I click "Create Account"
-    Then I can see error message about invalid email
+    Then I can see <message>
 
-  Scenario: Input incorrect password confirmation
-    When I input username
-    And I input valid email
-    And I input password
-    And I input incorrect password confirmation
-    When I click "Create Account"
-    Then I can see error message about incorrect password confirmation
+    Examples:
+    | username | email           | password | confirmed_password | message                                        |
+    | cheetah  | cheetah.zxc.com | 123123   | 123123             | "Email is invalid"                             |
+    | cheetah  | cheetah@cs.com  | 123123   | 123456             | "Password confirmation doesn't match Password" |
 
-  Scenario: Input correct information
+  Scenario: Sign up successfully
     When I input username
     And I input valid email
     And I input password
