@@ -2,16 +2,35 @@ require "rails_helper"
 
 RSpec.describe EventsController, type: :controller do
   describe "GET #index" do
-    let(:upcoming_events) { double }
+    context "keyword is empty" do
+      let(:upcoming_events) { double }
 
-    before do
-      expect(Event).to receive(:upcoming).and_return upcoming_events
-      get :index
+      before do
+        expect(Event).to receive(:upcoming).and_return upcoming_events
+        get :index
+      end
+
+      it "is successful and assigns upcoming events" do
+        expect(response).to be_success
+        expect(assigns(:events)).to eq upcoming_events
+        expect(assigns(:keyword)).to be_nil
+      end
     end
 
-    it "is successful and assigns upcoming events" do
-      expect(response).to be_success
-      expect(assigns(:events)).to eq upcoming_events
+    context "keyword is not empty" do
+      include_context 'three standard events'
+
+      let(:keyword) { "1 3" }
+
+      before do
+        get :index, search: keyword
+      end
+
+      it "is successful and assigns results" do
+        expect(response).to be_success
+        expect(assigns(:events)).to eq [event_3, event_1]
+        expect(assigns(:keyword)).to eq keyword
+      end
     end
   end
 

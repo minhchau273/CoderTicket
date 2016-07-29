@@ -14,7 +14,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "POST #create" do
     context "valid user" do
-      let(:user) { FactoryGirl.build(:user) }
+      let(:user) { build(:user) }
 
       before do
         post :create, user: {
