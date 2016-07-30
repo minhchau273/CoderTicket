@@ -13,11 +13,8 @@ And "There is a registered user" do
   create(:user, email: VALID_EMAIL)
 end
 
-When "I input valid email to sign in" do
+When "I input valid email and password to sign in" do
   fill_in "sign_in_email", with: VALID_EMAIL
-end
-
-And "I input correct password to sign in" do
   fill_in "sign_in_password", with: CORRECT_PASSWORD
 end
 

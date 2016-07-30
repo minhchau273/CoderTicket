@@ -15,7 +15,7 @@
               = number_to_currency(ticket_type.price, unit: "VND", precision: 0)
           .clearfix
         = link_to new_event_ticket_path(@event) do
-          button.btn.btn-lg.btn-block.btn-danger
+          button.btn.btn-lg.btn-block.btn-danger.book-button
             |  BOOK NOW 
     .col-md-9.event-content
       .hero-img.hidden-sm-down style=("background-image: url(#{@event.hero_image_url}); background-size: cover")

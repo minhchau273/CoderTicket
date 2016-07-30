@@ -10,4 +10,14 @@ class ApplicationController < ActionController::Base
       @current_user ||= User.find(session_id)
     end
   end
+
+  def store_location_and_require_login
+    session[:previous_url] = request.url
+    redirect_to login_path
+  end
+
+  def redirect_back_or_default
+    redirect_to(session[:previous_url] || root_path)
+    session[:previous_url] = nil
+  end
 end

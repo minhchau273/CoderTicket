@@ -1,2 +1,4 @@
+- if session[:previous_url]
+  p.error= "Please login first!"
 - errors.full_messages.each do |msg|
   p.error= msg
