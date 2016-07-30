@@ -18,17 +18,19 @@ RSpec.describe EventsController, type: :controller do
     end
 
     context "keyword is not empty" do
-      include_context 'three standard events'
+      include_context "three standard events"
 
-      let(:keyword) { "1 3" }
+      let(:keyword) { "keyword" }
+      let(:results) { double }
 
       before do
+        expect(Event).to receive(:search).and_return results
         get :index, search: keyword
       end
 
       it "is successful and assigns results" do
         expect(response).to be_success
-        expect(assigns(:events)).to eq [event_3, event_1]
+        expect(assigns(:events)).to eq results
         expect(assigns(:keyword)).to eq keyword
       end
     end

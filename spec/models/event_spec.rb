@@ -88,4 +88,50 @@ RSpec.describe Event, type: :model do
       end
     end
   end
+
+  describe ".search" do
+    include_context "three standard events"
+
+    context "no events found" do
+      it "returns no events" do
+        expect(Event.search("dummy")).to eq []
+      end
+    end
+
+    context "having results" do
+      let(:expected_events) { [event_3, event_1] }
+
+      context "searching with case-insensitive" do
+        it "returns the same results" do
+          expect(Event.search("new")).to eq expected_events
+          expect(Event.search("NEW")).to eq expected_events
+        end
+      end
+
+      context "two events match two words in the keyword" do
+        it "returns 2 events ordered by started time" do
+          expect(Event.search("1 3")).to eq expected_events
+        end
+      end
+
+      context "all events match the keyword" do
+        it "returns 2 upcoming events and does not return expired events" do
+          expect(Event.search("event")).to eq expected_events
+          expect(Event.search("event")).not_to include event_2
+        end
+      end
+
+      context "events match one of the keywords but not the other" do
+        it "returns events that match that word" do
+          expect(Event.search("1")).to eq [event_1]
+        end
+      end
+
+      context "searching expired events" do
+        it "returns no events" do
+          expect(Event.search("old")).to eq []
+        end
+      end
+    end
+  end
 end
