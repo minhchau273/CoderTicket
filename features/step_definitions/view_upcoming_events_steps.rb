@@ -34,7 +34,7 @@ Then "I press enter to search" do
 end
 
 And "I can see that dummy keyword in the search box" do
-  find_field("search").value.should eq DUMMY_KEYWORD
+  expect(find_field("search").value).to eq DUMMY_KEYWORD
 end
 
 When "I input a keyword" do
@@ -42,7 +42,7 @@ When "I input a keyword" do
 end
 
 And "I can see that keyword in the search box" do
-  find_field("search").value.should eq KEYWORD
+  expect(find_field("search").value).to eq KEYWORD
 end
 
 And "I can see the results" do

@@ -5,11 +5,11 @@
     form
       input.form-control type="text" name="search" placeholder="Search for events, shows, courses..." value="#{@keyword}" onfocus="this.value = this.value;" autofocus="true"
 .container-fluid.events-list
-  - if @events.count == 0
+  - if @events.empty?
     p.no-results
       | No events found!
   - else
-    - @events.in_groups_of(2) do |group|
+    - @events.in_groups_of(2, false) do |group|
       .row
-        - group.compact.each do |event|
+        - group.each do |event|
           = render partial: "card", locals: { event: event }
