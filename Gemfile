@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap', '~> 4.0.0.alpha1'
+gem 'rails-assets-tether', '>= 1.1.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'font-kit-rails'
 gem 'jquery-rails'
