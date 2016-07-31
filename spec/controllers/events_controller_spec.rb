@@ -18,13 +18,11 @@ RSpec.describe EventsController, type: :controller do
     end
 
     context "keyword is not empty" do
-      include_context "three standard events"
-
-      let(:keyword) { "keyword" }
+      let(:keyword) { Faker::Lorem.word }
       let(:results) { double }
 
       before do
-        expect(Event).to receive(:search).and_return results
+        expect(Event).to receive(:search).with(keyword).and_return results
         get :index, search: keyword
       end
 
