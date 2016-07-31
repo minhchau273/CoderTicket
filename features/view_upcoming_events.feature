@@ -17,7 +17,7 @@ Feature: View upcoming events at Home page
   Scenario: Search events and get no results
     When I input a dummy keyword
     Then I press enter to search
-    And I can see that dummy keyword in the search box
+    And I can see that keyword in the search box
     And I can see "No events found"
 
   Scenario: Search events and get results

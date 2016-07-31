@@ -26,23 +26,21 @@ Then "I can see the event's name" do
 end
 
 When "I input a dummy keyword" do
-  fill_in "search", with: DUMMY_KEYWORD
+  @keyword = DUMMY_KEYWORD
+  fill_in "search", with: @keyword
 end
 
 Then "I press enter to search" do
   find_field("search").native.send_key(:enter)
 end
 
-And "I can see that dummy keyword in the search box" do
-  expect(find_field("search").value).to eq DUMMY_KEYWORD
-end
-
 When "I input a keyword" do
-  fill_in "search", with: KEYWORD
+  @keyword = KEYWORD
+  fill_in "search", with: @keyword
 end
 
 And "I can see that keyword in the search box" do
-  expect(find_field("search").value).to eq KEYWORD
+  expect(find_field("search").value).to eq @keyword
 end
 
 And "I can see the results" do
