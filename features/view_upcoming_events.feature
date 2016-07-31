@@ -13,3 +13,16 @@ Feature: View upcoming events at Home page
   Scenario: View event details
     When I click on an event
     Then I can see the event's name
+
+  Scenario: Search events and get no results
+    When I input a dummy keyword
+    Then I press enter to search
+    And I can see that keyword in the search box
+    And I can see "No events found"
+
+  Scenario: Search events and get results
+    When I input a keyword
+    Then I press enter to search
+    And I can see that keyword in the search box
+    And I can see the results
+    And I cannot see the unexpected events

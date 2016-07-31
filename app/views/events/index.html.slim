@@ -3,9 +3,13 @@
     h2
       |  Discover upcoming events 
     form
-      input.form-control type="text" name="search" placeholder="Search for events, shows, courses..."
+      input.form-control type="text" name="search" placeholder="Search for events, shows, courses..." value="#{@keyword}" onfocus="this.value = this.value;" autofocus="true"
 .container-fluid.events-list
-  - @events.in_groups_of(2) do |group|
-    .row
-      - group.compact.each do |event|
-        = render partial: "card", locals: { event: event }
+  - if @events.empty?
+    p.no-results
+      | No events found!
+  - else
+    - @events.in_groups_of(2, false) do |group|
+      .row
+        - group.each do |event|
+          = render partial: "card", locals: { event: event }

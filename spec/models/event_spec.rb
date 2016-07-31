@@ -88,4 +88,12 @@ RSpec.describe Event, type: :model do
       end
     end
   end
+
+  describe ".search" do
+    include_context "three standard events"
+
+    it "returns the results satisfied the keyword" do
+      expect(Event.search("EVENT 1 3 old")).to eq [event_3, event_1]
+    end
+  end
 end

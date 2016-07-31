@@ -56,6 +56,11 @@
   padding: 30px 150px;
   background-color: $gray-lighter;
 
+  p.no-results {
+    text-align: center;
+    font-size: 20px;
+  }
+
   .card {
     margin-bottom: 20px;
 

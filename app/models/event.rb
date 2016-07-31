@@ -27,4 +27,9 @@ class Event < ActiveRecord::Base
   def min_price
     ticket_types.minimum(:price)
   end
+
+  def self.search(keyword)
+    keywords = keyword.downcase.split.join("|")
+    upcoming.where("LOWER(name) SIMILAR TO '%(#{keywords})%'")
+  end
 end
