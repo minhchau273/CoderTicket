@@ -1,3 +1,20 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+seconds = undefined
+countdown = undefined
+
+redirect = ->
+  document.location.href = "/"
+
+updateSecs = ->
+  $("#seconds").html(seconds)
+  seconds--
+  if seconds == 0
+    clearInterval countdown
+    redirect()
+
+countdownTimer = ->
+  seconds = $("#seconds").html()
+  countdown = setInterval((->
+    updateSecs()
+  ), 1000)
+
+$ -> countdownTimer()

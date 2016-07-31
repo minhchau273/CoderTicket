@@ -1,8 +1,7 @@
 class TicketsController < ApplicationController
   def new
-    if current_user
-      @event = Event.find(params[:event_id])
-    else
+    @event = Event.find(params[:event_id])
+    if !@event.has_expired? && !current_user
       store_location_and_require_login
     end
   end

@@ -101,4 +101,22 @@ RSpec.describe Event, type: :model do
       end
     end
   end
+
+  describe "#has_expired?" do
+    context "this event has expired" do
+      let(:event) { create(:event, starts_at: 1.week.ago) }
+
+      it "returns true" do
+        expect(event.has_expired?).to be_truthy
+      end
+    end
+
+    context "this event has not expired" do
+      let(:event) { create(:event, starts_at: 1.week.since) }
+
+      it "returns false" do
+        expect(event.has_expired?).to be_falsey
+      end
+    end
+  end
 end
