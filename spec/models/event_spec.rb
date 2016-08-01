@@ -23,11 +23,24 @@ RSpec.describe Event, type: :model do
 
   describe "scopes" do
     describe ".upcoming" do
-      include_context 'three standard events'
+      let!(:event_1) { create(:event, starts_at: 2.weeks.since) }
+      let!(:event_2) { create(:event, starts_at: 2.weeks.ago) }
+      let!(:event_3) { create(:event, starts_at: 1.week.since) }
 
       it "returns upcoming events" do
         expect(Event.upcoming).to eq [event_3, event_1]
       end
+    end
+  end
+
+  describe ".search" do
+    let(:keyword) { "  loReM  iPsUm   " }
+    let!(:event_1) { create(:event, name: "Lorem event", starts_at: 2.weeks.since) }
+    let!(:event_2) { create(:event, name: "Lorem ipsum", starts_at: 2.weeks.ago) }
+    let!(:event_3) { create(:event, name: "Event ipsum", starts_at: 1.week.since) }
+
+    it "returns the results satisfied the keyword" do
+      expect(Event.search(keyword)).to eq [event_3, event_1]
     end
   end
 
@@ -86,14 +99,6 @@ RSpec.describe Event, type: :model do
       it "returns the min price of these types" do
         expect(event.min_price).to eq price_2
       end
-    end
-  end
-
-  describe ".search" do
-    include_context "three standard events"
-
-    it "returns the results satisfied the keyword" do
-      expect(Event.search("EVENT 1 3 old")).to eq [event_3, event_1]
     end
   end
 end
