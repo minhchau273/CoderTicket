@@ -16,6 +16,6 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require events
+//= require orders
 //= require sessions
-//= require tickets
 //= require users

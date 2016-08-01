@@ -14,7 +14,7 @@
             .col-md-6.price.text-right
               = number_to_currency(ticket_type.price, unit: "VND", precision: 0)
           .clearfix
-        = link_to new_event_ticket_path(@event) do
+        = link_to new_event_order_path(@event) do
           button.btn.btn-lg.btn-block.btn-danger.book-button class=("disabled" if @event.has_expired?)
             |  BOOK NOW 
     .col-md-9.event-content

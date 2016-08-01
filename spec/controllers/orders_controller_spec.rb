@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe TicketsController, type: :controller do
+RSpec.describe OrdersController, type: :controller do
   describe "GET #new" do
     subject { get :new, event_id: event.id }
 

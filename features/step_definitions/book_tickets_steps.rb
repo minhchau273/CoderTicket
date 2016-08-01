@@ -3,7 +3,7 @@ When "I click Book Now button" do
 end
 
 Then "I should be at the Booking page" do
-  expect(page).to have_current_path(new_event_ticket_path @events[0])
+  expect(page).to have_current_path(new_event_order_path @events[0])
 end
 
 When "I visit an expired event page" do
@@ -15,7 +15,7 @@ Then "The Book Now button should be disabled" do
 end
 
 When "I visit an expired event's booking page" do
-  visit new_event_ticket_path @events[1]
+  visit new_event_order_path @events[1]
 end
 
 And(/^I wait for (\d+) seconds?$/) do |n|

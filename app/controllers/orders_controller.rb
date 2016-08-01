@@ -1,4 +1,4 @@
-class TicketsController < ApplicationController
+class OrdersController < ApplicationController
   def new
     @event = Event.find(params[:event_id])
     if !@event.has_expired? && !current_user
