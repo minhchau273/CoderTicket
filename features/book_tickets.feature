@@ -3,11 +3,11 @@ Feature: Book tickets
   I want to book tickets for upcoming events
 
   Background:
-    Given There are 3 events
+    Given There are some events
     And There is a registered user
     And I am at Home page
 
-  Scenario: I havent't signed in yet and go to Booking page
+  Scenario: I haven't signed in yet and go to Booking page
     When I click on an event
     And I click Book Now button
     Then I should be redirected to the Sign in page

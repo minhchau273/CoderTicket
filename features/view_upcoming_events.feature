@@ -3,7 +3,7 @@ Feature: View upcoming events at Home page
   I want to view a list of upcoming events ordered by started time
 
   Background:
-    Given There are 3 events
+    Given There are some events
     And I am at Home page
 
   Scenario: View upcoming events

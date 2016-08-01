@@ -3,7 +3,7 @@ Capybara.default_selector = :xpath
 KEYWORD = "1"
 DUMMY_KEYWORD = "dummy"
 
-And "There are 3 events" do
+And "There are some events" do
   @events = [
     create(:event, name: "New event 1", starts_at: 2.weeks.since),
     create(:event, name: "Old event 2", starts_at: 2.weeks.ago),
