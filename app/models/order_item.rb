@@ -3,10 +3,9 @@ class OrderItem < ActiveRecord::Base
   belongs_to :ticket_type
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
+  validates :order, :ticket_type, presence: true
 
-  before_save :update_subtotal
-
-  def update_subtotal
-    subtotal = ticket_type.price * quantity
+  def subtotal
+    ticket_type.price * quantity
   end
 end

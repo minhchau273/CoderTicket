@@ -4,9 +4,9 @@ class Order < ActiveRecord::Base
 
   has_many :order_items
 
-  before_save :update_total
+  validates :user, :event, presence: true
 
-  def update_total
-    total = order_items.map(&:subtotal).sum
+  def total
+    order_items.map(&:subtotal).sum
   end
 end
