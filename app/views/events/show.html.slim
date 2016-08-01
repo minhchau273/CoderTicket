@@ -12,7 +12,7 @@
             .col-md-6
               = ticket_type.name
             .col-md-6.price.text-right
-              = number_to_currency(ticket_type.price, unit: "VND", precision: 0)
+              = formatted_price(ticket_type.price)
           .clearfix
         = link_to new_event_order_path(@event) do
           button.btn.btn-lg.btn-block.btn-danger.book-button class=("disabled" if @event.has_expired?)

@@ -9,6 +9,11 @@ And "There are some events" do
     create(:expired_event, name: "Old event 2"),
     create(:event, name: "New event 3", starts_at: 1.week.since)
   ]
+
+  @ticket_types = [
+    create(:ticket_type, name: "Type 1", event: @events[0], price: 50_000, max_quantity: 20),
+    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 20, remain: 5)
+  ]
 end
 
 And "I can see list of upcoming events ordered by started time" do

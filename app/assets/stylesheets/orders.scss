@@ -41,6 +41,10 @@
 
     td {
       border-top: 1px dashed $silver_chalice_color;
+
+      .quantity_select {
+        width: 45px;
+      }
     }
 
     margin-top: 40px;

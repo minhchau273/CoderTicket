@@ -39,4 +39,19 @@ RSpec.describe OrdersController, type: :controller do
       end
     end
   end
+
+  describe "POST #create" do
+    login
+
+    let(:event) { create(:event) }
+    let(:type) { create(:ticket_type, event: event, price: 50_000) }
+
+    before do
+      post :create, { event_id: "#{event.id}", "ticket_type_#{type.id}": { quantity: "1" } }
+    end
+
+    it "redirects to this event's details page" do
+      expect(response).to redirect_to event_path(event)
+    end
+  end
 end
