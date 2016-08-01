@@ -24,9 +24,8 @@ Feature: Sign in
     | cheetah@cs.com  | 123456   | "Password does not match" |
 
   Scenario: Sign in successfully
-    When I input valid email to sign in
-    And I input correct password to sign in
-    When I click "Sign In"
+    When I input valid email and password to sign in
+    And I click "Sign In"
     Then I can see my email
     And I can see "Sign Out"
     And I cannot see "Log In"

@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   def create
     if (@sign_in = SignIn.new(sign_in_params)).valid?
       session[:user_id] = @sign_in.user_id
-      redirect_to root_path
+      redirect_back_or_default
     else
       render "new"
     end
