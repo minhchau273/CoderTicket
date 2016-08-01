@@ -15,7 +15,7 @@ Then(/^I cannot see "(.*?)"$/) do |content|
 end
 
 Then "I should be redirected to the Sign in page" do
-  expect(page).to have_current_path(login_path)
+  expect(page).to have_current_path login_path
 end
 
 Then "I sign in" do
