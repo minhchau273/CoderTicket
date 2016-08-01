@@ -6,7 +6,7 @@ DUMMY_KEYWORD = "dummy"
 And "There are some events" do
   @events = [
     create(:event, name: "New event 1", starts_at: 2.weeks.since),
-    create(:event, name: "Old event 2", starts_at: 2.weeks.ago),
+    create(:expired_event, name: "Old event 2"),
     create(:event, name: "New event 3", starts_at: 1.week.since)
   ]
 end

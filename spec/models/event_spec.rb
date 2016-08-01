@@ -36,8 +36,9 @@ RSpec.describe Event, type: :model do
   describe ".search" do
     let(:keyword) { "  loReM  iPsUm   " }
     let!(:event_1) { create(:event, name: "Lorem event", starts_at: 2.weeks.since) }
-    let!(:event_2) { create(:event, name: "Lorem ipsum", starts_at: 2.weeks.ago) }
+    let!(:event_2) { create(:expired_event, name: "Lorem ipsum") }
     let!(:event_3) { create(:event, name: "Event ipsum", starts_at: 1.week.since) }
+    let!(:event_4) { create(:event, name: "Coderschool event") }
 
     it "returns the results satisfied the keyword" do
       expect(Event.search(keyword)).to eq [event_3, event_1]
