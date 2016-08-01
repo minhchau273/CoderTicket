@@ -1,26 +1,8 @@
 - if @event.has_expired?
-  .alert.alert-danger.expired-ticket-error
-    | This event is no longer available.
-    p
-      | You should be automatically redirected to Home page in 
-      span#seconds= WAITING_TIME
-      |  seconds. 
+  = render partial: "error", locals: { error: "This event is no longer available." }
 - else
   .container-fluid.tickets-buy
-    .row.tickets-header
-      .col-xs-12.col-md-11.col-md-offset-1
-        h3
-          = @event.name
-        .pull-left
-          = fa_icon "map-marker"
-        .venue-details
-          = @event.venue.name
-          br
-          = @event.venue.full_address
-        .pull-left
-          = fa_icon "clock-o"
-        .time-details
-          = @event.starts_at_to_s
+    = render partial: "header", locals: { event: @event }
     = form_for [@event, @order] do |f|
       .row
         .col-md-11.col-md-offset-1
@@ -43,22 +25,3 @@
         .col-md-2.col-md-offset-5
           = f.submit "Buy", class: "btn btn-success btn-lg btn-block"
         div
-
-coffee:
-  seconds = undefined
-  countdown = undefined
-
-  redirect = ->
-    document.location.href = "/"
-
-  updateSeconds = ->
-    $("#seconds").html seconds
-    if seconds-- == 0
-      clearInterval countdown
-      redirect()
-
-  countdownTimer = ->
-    seconds = $("#seconds").html()
-    countdown = setInterval(updateSeconds, 1000)
-
-  $ -> countdownTimer()

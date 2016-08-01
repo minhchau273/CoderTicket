@@ -5,6 +5,8 @@ class OrderItem < ActiveRecord::Base
   validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :order, :ticket_type, presence: true
 
+  delegate :name, to: :ticket_type, prefix: true
+
   def subtotal
     ticket_type.price * quantity
   end

@@ -1,4 +1,10 @@
 class OrdersController < ApplicationController
+  def show
+    if !current_user || current_user != (@order = Order.find(params[:id])).user
+      @access_denied = true
+    end
+  end
+
   def new
     @order = Order.new
     @event = Event.find(params[:event_id])
@@ -17,7 +23,8 @@ class OrdersController < ApplicationController
     end
 
     if @order.save
-      redirect_to event_path(@event)
+      flash[:notice] = "Order successfully!"
+      redirect_to order_path(@order)
     else
       render "new"
     end

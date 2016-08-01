@@ -24,7 +24,8 @@ Feature: Book tickets
     And I can see a list of ticket types
     When I select the quantity of tickets
     And I click "Buy"
-    Then I should be redirected to the event's details page
+    Then I should be redirected to the order's details page
+    And I can see "Order successfully!"
 
   Scenario: I cannot buy tickets to events that occur in the past
     When I visit an expired event page

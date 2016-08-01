@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "register", to: "users#new"
 
   resources :users
+  resources :orders, only: [:index, :show]
 
   resources :events do
     resources :orders

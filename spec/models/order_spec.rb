@@ -12,6 +12,10 @@ RSpec.describe Order, type: :model do
     it { is_expected.to validate_presence_of :event }
   end
 
+  describe "delegates" do
+    it { is_expected.to delegate_method(:name).to(:event).with_prefix(true) }
+  end
+
   describe "#total" do
     let(:event) { create(:event) }
     let(:order) { create(:order, event: event) }

@@ -6,6 +6,8 @@ class Order < ActiveRecord::Base
 
   validates :user, :event, presence: true
 
+  delegate :name, to: :event, prefix: true
+
   def total
     order_items.map(&:subtotal).sum
   end

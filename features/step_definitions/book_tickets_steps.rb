@@ -3,7 +3,7 @@ When "I click Book Now button" do
 end
 
 Then "I should be at the Booking page" do
-  expect(page).to have_current_path(new_event_order_path @events[0])
+  expect(page).to have_current_path new_event_order_path @events[0]
 end
 
 When "I visit an expired event page" do
@@ -44,6 +44,6 @@ When "I select the quantity of tickets" do
   select "2", from: "ticket_type_#{@ticket_types[0].id}_quantity"
 end
 
-Then "I should be redirected to the event's details page" do
-  expect(page).to have_current_path event_path(@events[0])
+Then "I should be redirected to the order's details page" do
+  expect(page).to have_current_path order_path Order.last
 end

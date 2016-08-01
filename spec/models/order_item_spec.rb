@@ -13,6 +13,10 @@ RSpec.describe OrderItem, type: :model do
     it { is_expected.to validate_numericality_of(:quantity).is_greater_than(0) }
   end
 
+  describe "delegates" do
+    it { is_expected.to delegate_method(:name).to(:ticket_type).with_prefix(true) }
+  end
+
   describe "#subtotal" do
     let(:type) { create(:ticket_type, price: 50_000) }
     let!(:item) { create(:order_item, ticket_type: type, quantity: 2 )}
