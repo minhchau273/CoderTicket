@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
   belongs_to :category
 
   has_many :ticket_types
+  has_many :orders
 
   validates :name, :extended_html_description, :venue, :category, :starts_at, presence: true
   validates :name, uniqueness: { scope: [:venue_id, :starts_at] }

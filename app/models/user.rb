@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  has_many :orders
+
   validates :name, :email, presence: true
   validates :password, length: { minimum: PASSWORD_MIN_LENGTH }
   validates :email, uniqueness: { case_sensitive: false }
