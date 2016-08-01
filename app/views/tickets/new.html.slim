@@ -37,7 +37,7 @@
               td
                 = number_to_currency(type.price, unit: "VND ", precision: 0)
               td
-                = select_tag("quantity", options_for_select(0..10))
+                = select_tag("quantity", options_for_select(0..MAX_QUANTITY))
     .row
       .col-md-2.col-md-offset-5
         button.btn.btn-success.btn-lg.btn-block
