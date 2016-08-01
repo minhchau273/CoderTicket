@@ -17,4 +17,5 @@
 //= require turbolinks
 //= require events
 //= require sessions
+//= require tickets
 //= require users
