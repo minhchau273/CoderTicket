@@ -82,41 +82,35 @@ RSpec.describe Event, type: :model do
   end
 
   describe "#min_price" do
+    subject { event.min_price }
+
     let(:event) { create(:event) }
     let(:price_1) { 100_000 }
     let!(:ticket_type_1) { create(:ticket_type, price: price_1, event: event) }
 
-    context "there is 1 ticket type" do
-      it "returns the price of this type" do
-        expect(event.min_price).to eq price_1
-      end
+    context "there is 1 ticket type with price 100000" do
+      it { is_expected.to eq price_1 }
     end
 
-    context "there are more than 1 ticket type" do
+    context "there are more than 1 ticket type with price 100000 and 50000" do
       let(:price_2) { 50_000 }
       let!(:ticket_type_2) { create(:ticket_type, price: price_2, event: event) }
 
-      it "returns the min price of these types" do
-        expect(event.min_price).to eq price_2
-      end
+      it { is_expected.to eq price_2 }
     end
   end
 
   describe "#has_expired?" do
+    subject { event.has_expired? }
+
     context "this event has expired" do
       let(:event) { create(:event, starts_at: 1.week.ago) }
-
-      it "returns true" do
-        expect(event.has_expired?).to be_truthy
-      end
+      it { is_expected.to be_truthy }
     end
 
     context "this event has not expired" do
       let(:event) { create(:event, starts_at: 1.week.since) }
-
-      it "returns false" do
-        expect(event.has_expired?).to be_falsey
-      end
+      it { is_expected.to be_falsey }
     end
   end
 end
