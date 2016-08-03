@@ -6,27 +6,34 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
     @event = Event.find(params[:event_id])
+    order_items = @event.ticket_types.map do |ticket_type|
+      OrderItem.new(ticket_type: ticket_type)
+    end
+    @order = Order.new(order_items: order_items)
     if !@event.has_expired? && !current_user
       store_location_and_require_login
     end
   end
 
   def create
-    @event = Event.find(params[:event_id])
-    @order = Order.new(user_id: current_user.id, event_id: @event.id)
-    @event.ticket_types.each do |type|
-      if (quantity = params["ticket_type_#{type.id}".to_sym]["quantity"]).to_i > 0
-        @order.order_items.new(ticket_type: type, quantity: quantity)
-      end
-    end
-
+    @order = Order.new(order_params)
     if @order.save
       flash[:notice] = "Order successfully!"
       redirect_to order_path(@order)
     else
       render "new"
     end
+  end
+
+  private
+
+  def order_params
+    order_params = params.require(:order).permit(:event_id, order_items_attributes: [:quantity, :ticket_type_id])
+    order_params["user_id"] = current_user.id
+    order_params["order_items_attributes"] = order_params["order_items_attributes"].keep_if do |_, value|
+      value["quantity"].to_i > 0
+    end.values
+    order_params
   end
 end

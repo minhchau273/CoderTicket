@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OrderItem, type: :model do
   describe "relationships" do
-    it { is_expected.to belong_to :order }
+    it { is_expected.to belong_to(:order).inverse_of(:order_items) }
     it { is_expected.to belong_to :ticket_type }
   end
 

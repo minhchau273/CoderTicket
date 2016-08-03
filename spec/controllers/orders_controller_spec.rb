@@ -15,15 +15,19 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     context "this event has not expired" do
-      let!(:event) { create(:event, starts_at: 1.week.since) }
+      let(:event) { create(:event, starts_at: 1.week.since) }
+      let!(:ticket_type_1) { create(:ticket_type, event: event) }
+      let!(:ticket_type_2) { create(:ticket_type, event: event) }
+      let(:assigned_ticket_types) { assigns(:order).order_items.map(&:ticket_type) }
 
       context "user has already signed in" do
         login
 
-        it "is successful" do
+        it "is successful and creates new order with some order items based on the ticket types of this event" do
           subject
           expect(response).to be_success
           expect(assigns(:event)).to eq event
+          expect(assigned_ticket_types).to match_array [ticket_type_1, ticket_type_2]
         end
       end
 
@@ -43,15 +47,35 @@ RSpec.describe OrdersController, type: :controller do
   describe "POST #create" do
     login
 
+    let(:subject) {
+      post :create, {
+        event_id: event.id,
+        order: {
+          event_id: event.id,
+          order_items_attributes: {
+            "0" => { "ticket_type_id": ticket_type_1.id, "quantity": "0" },
+            "1" => { "ticket_type_id": ticket_type_2.id, "quantity": "1" },
+            "2" => { "ticket_type_id": ticket_type_3.id, "quantity": "2" }
+          } 
+        }
+      }
+    }
+
     let(:event) { create(:event) }
-    let(:type) { create(:ticket_type, event: event, price: 50_000) }
+    let!(:ticket_type_1) { create(:ticket_type, event: event, price: 50_000) }
+    let!(:ticket_type_2) { create(:ticket_type, event: event, price: 100_000) }
+    let!(:ticket_type_3) { create(:ticket_type, event: event, price: 200_000, max_quantity: 2) }
+    let(:new_order) { Order.last }
+    let(:order_items) { Order.last.order_items.order(:quantity) }
+    let(:ordered_ticket_types) { order_items.map(&:ticket_type) }
 
-    before do
-      post :create, { event_id: "#{event.id}", "ticket_type_#{type.id}": { quantity: "1" } }
-    end
-
-    it "redirects to this order's details page" do
-      expect(response).to redirect_to order_path(Order.last)
+    it "creates new order and redirects to this order's details page" do
+      expect{ subject }.to change(Order, :count).by(1)
+      expect(new_order.user_id).to eq @user.id
+      expect(ordered_ticket_types).to match_array [ticket_type_2, ticket_type_3]
+      expect(order_items[0].ticket_type).to eq ticket_type_2
+      expect(order_items[1].ticket_type).to eq ticket_type_3
+      expect(response).to redirect_to order_path(new_order)
       expect(flash[:notice]).to eq "Order successfully!"
     end
   end

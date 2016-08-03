@@ -4,6 +4,7 @@
   .container-fluid.tickets-buy
     = render partial: "header", locals: { event: @event }
     = form_for [@event, @order] do |f|
+      = f.hidden_field :event_id, value: @event.id
       .row
         .col-md-11.col-md-offset-1
           table.table
@@ -13,14 +14,16 @@
               |  Unit Price
             th
               |  Quantity
-            - @event.ticket_types.each do |type|
+            - f.object.order_items.each do |order_item|
               tr
                 td.ticket-name
-                  = type.name
+                  = order_item.ticket_type.name
                 td.ticket-price
-                  = formatted_price(type.price)
+                  = formatted_price(order_item.ticket_type.price)
                 td
-                  = select_tag("#{dom_id type}[quantity]", options_for_select(0..type.actual_max_quantity), class: "quantity_select")
+                  = f.fields_for :order_items, order_item do |ff|
+                    = ff.hidden_field :ticket_type_id, value: ff.object.ticket_type_id
+                    = ff.select "quantity", options_for_select(0..ff.object.ticket_type.actual_max_quantity), {}, class: "quantity_select"
       .row
         .col-md-2.col-md-offset-5
           = f.submit "Buy", class: "btn btn-success btn-lg btn-block"

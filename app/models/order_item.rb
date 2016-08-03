@@ -1,5 +1,5 @@
 class OrderItem < ActiveRecord::Base
-  belongs_to :order
+  belongs_to :order, inverse_of: :order_items
   belongs_to :ticket_type
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }

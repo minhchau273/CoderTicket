@@ -41,7 +41,7 @@ And "I can see a list of ticket types" do
 end
 
 When "I select the quantity of tickets" do
-  select "2", from: "ticket_type_#{@ticket_types[0].id}_quantity"
+  select "2", from: "order_order_items_attributes_0_quantity"
 end
 
 Then "I should be redirected to the order's details page" do
