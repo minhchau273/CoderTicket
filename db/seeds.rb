@@ -2,6 +2,9 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 
+# Create User
+User.create(name: 'Chau', email: 'chau@ea.com', password: '123123', password_confirmation: '123123')
+
 # Create Regions
 ['Ho Chi Minh', 'Ha Noi', 'Binh Thuan', 'Da Nang', 'Lam Dong'].each do |r|
   Region.create(name: r)
@@ -36,8 +39,8 @@ e = Event.create({
     <p style="text-align:center"><span style="font-size:16px"><strong><span style="background-color:transparent; color:rgb(0, 0, 0)">www.vietnamvictorychallenge.com. </span></strong></span></p>
   DESC
 })
-e.ticket_types << TicketType.create(name: '2016 Việt Nam Thử Thách Chiến Thắng dành cho những tay đua đăng kí sớm.', price: 500000, max_quantity: 95, remain: 95)
-e.ticket_types << TicketType.create(name: 'Việt Nam Thử Thách Chiến Thắng ( Giá chính thức)', price: 2000000, max_quantity: 5, remain: 5)
+e.ticket_types << TicketType.create(name: '2016 Việt Nam Thử Thách Chiến Thắng dành cho những tay đua đăng kí sớm.', price: 500000, max_quantity: 95)
+e.ticket_types << TicketType.create(name: 'Việt Nam Thử Thách Chiến Thắng ( Giá chính thức)', price: 2000000, max_quantity: 5)
 
 
 # Second event:
@@ -118,10 +121,10 @@ e = Event.create({
 })
 
 
-e.ticket_types << TicketType.create(name: 'Vé loại A', price: 500000, max_quantity: 10, remain: 10)
-e.ticket_types << TicketType.create(name: 'Vé loại B', price: 300000, max_quantity: 50, remain: 50)
-e.ticket_types << TicketType.create(name: 'Vé loại C', price: 200000, max_quantity: 100, remain: 100)
-e.ticket_types << TicketType.create(name: 'Vé loại D', price: 150000, max_quantity: 200, remain: 200)
+e.ticket_types << TicketType.create(name: 'Vé loại A', price: 500000, max_quantity: 8)
+e.ticket_types << TicketType.create(name: 'Vé loại B', price: 300000, max_quantity: 50)
+e.ticket_types << TicketType.create(name: 'Vé loại C', price: 200000, max_quantity: 100)
+e.ticket_types << TicketType.create(name: 'Vé loại D', price: 150000, max_quantity: 200)
 
 # Third event - Merry Christmas Never Alone
 
@@ -157,4 +160,4 @@ e = Event.create({
                         
   DESC
 })  
-e.ticket_types << TicketType.create(name: 'General', price: 99000, max_quantity: 1000, remain: 1000)
+e.ticket_types << TicketType.create(name: 'General', price: 99000, max_quantity: 1000)

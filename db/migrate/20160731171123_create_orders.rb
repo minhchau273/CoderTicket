@@ -1,9 +1,8 @@
 class CreateOrders < ActiveRecord::Migration
   def change
     create_table :orders do |t|
-      t.integer :user_id
-      t.integer :event_id
-      t.integer :total
+      t.references :user, index: true, foreign_key: true
+      t.references :event, index: true, foreign_key: true
 
       t.timestamps null: false
     end

@@ -12,7 +12,7 @@ And "There are some events" do
 
   @ticket_types = [
     create(:ticket_type, name: "Type 1", event: @events[0], price: 50_000, max_quantity: 20),
-    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 20, remain: 5)
+    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 5)
   ]
 end
 
