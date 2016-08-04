@@ -6,8 +6,9 @@ class OrderItem < ActiveRecord::Base
   validates :order, :ticket_type, presence: true
 
   delegate :name, to: :ticket_type, prefix: true
+  delegate :price, to: :ticket_type, prefix: true
 
   def subtotal
-    ticket_type.price * quantity
+    ticket_type_price * quantity
   end
 end

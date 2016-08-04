@@ -8,23 +8,56 @@
       .row
         .col-md-11.col-md-offset-1
           table.table
-            th
-              |  Ticket Type
-            th
-              |  Unit Price
-            th
-              |  Quantity
+            thead
+              th
+                |  Ticket Type
+              th.center
+                |  Unit Price
+              th.center
+                |  Quantity
+            tbody
             - f.object.order_items.each do |order_item|
               tr
                 td.ticket-name
                   = order_item.ticket_type.name
-                td.ticket-price
+                td.ticket-price.center
                   = formatted_price(order_item.ticket_type.price)
-                td
+                td.center
                   = f.fields_for :order_items, order_item do |ff|
                     = ff.hidden_field :ticket_type_id, value: ff.object.ticket_type_id
+                    = ff.hidden_field :ticket_type_price, value: ff.object.ticket_type_price
                     = ff.select "quantity", options_for_select(0..ff.object.ticket_type.actual_max_quantity), {}, class: "quantity-select"
+            tfoot
+              tr
+                td.center[colspan="2"]
+                  | Total
+                td.order-total.center
+                  = formatted_price(0)
+          .alert.alert-danger.order-error
+            | Please choose at least 1 ticket to continue!
       .row
         .col-md-2.col-md-offset-5
-          = f.submit "Buy", class: "btn btn-success btn-lg btn-block"
+          = f.submit "Buy", class: "btn btn-success btn-lg btn-block btn-submit"
         div
+
+coffee:
+  formatNumber = (number) ->
+    formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    formattedNumber + " VND"
+
+  countTotal = ->
+    selectTags = $(".quantity-select")
+    total = 0
+    i = 0
+    while i < selectTags.length
+      total += selectTags[i].value * $("#order_order_items_attributes_" + i + "_ticket_type_price")[0].value
+      i++
+    total
+
+  $(".quantity-select").change ->
+    $(".order-total").html(formatNumber(countTotal()))
+
+  $("#new_order").submit (event) ->
+    if countTotal() == 0
+      $(".order-error").css("display", "inherit")
+      event.preventDefault()

@@ -31,7 +31,7 @@ And "I can see a list of ticket types" do
   expect(page).to have_selector("#{name_xpath}[1]", text: @ticket_types[0].name)
   expect(page).to have_selector("#{name_xpath}[2]", text: @ticket_types[1].name)
 
-  price_xpath = "(//td[@class='ticket-price'])"
+  price_xpath = "(//td[@class='ticket-price center'])"
   expect(page).to have_selector("#{price_xpath}[1]", text: formatted_price(@ticket_types[0].price))
   expect(page).to have_selector("#{price_xpath}[2]", text: formatted_price(@ticket_types[1].price))
 

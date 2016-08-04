@@ -33,10 +33,14 @@
     margin-top: 30px;
   }
 
+  .order-error {
+    display: none;
+  }
+
   table {
     font-size: 14px;
     margin-top: 40px;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 
     th {
       color: $mine-shaft-color;

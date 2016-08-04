@@ -15,6 +15,7 @@ RSpec.describe OrderItem, type: :model do
 
   describe "delegates" do
     it { is_expected.to delegate_method(:name).to(:ticket_type).with_prefix(true) }
+    it { is_expected.to delegate_method(:price).to(:ticket_type).with_prefix(true) }
   end
 
   describe "#subtotal" do

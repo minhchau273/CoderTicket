@@ -22,6 +22,8 @@ Feature: Book tickets
     And I click Book Now button
     Then I should be at the Booking page
     And I can see a list of ticket types
+    When I click "Buy"
+    Then I can see "Please choose at least 1 ticket to continue!"
     When I select the quantity of tickets
     And I click "Buy"
     Then I should be redirected to the order's details page
