@@ -26,18 +26,18 @@ Then "I should be at the Home page" do
   expect(page).to have_current_path root_path
 end
 
-And "I can see a list of ticket types" do
+And "I can see a list of ticket types order by price desc" do
   name_xpath = "(//td[@class='ticket-name'])"
-  expect(page).to have_selector("#{name_xpath}[1]", text: @ticket_types[0].name)
-  expect(page).to have_selector("#{name_xpath}[2]", text: @ticket_types[1].name)
+  expect(page).to have_selector("#{name_xpath}[1]", text: @ticket_types[1].name)
+  expect(page).to have_selector("#{name_xpath}[2]", text: @ticket_types[0].name)
 
   price_xpath = "(//td[@class='ticket-price center'])"
-  expect(page).to have_selector("#{price_xpath}[1]", text: formatted_price(@ticket_types[0].price))
-  expect(page).to have_selector("#{price_xpath}[2]", text: formatted_price(@ticket_types[1].price))
+  expect(page).to have_selector("#{price_xpath}[1]", text: formatted_price(@ticket_types[1].price))
+  expect(page).to have_selector("#{price_xpath}[2]", text: formatted_price(@ticket_types[0].price))
 
   last_quantity_option_xpath = "(//select[@class='quantity-select']/option[last()])"
-  expect(page).to have_selector("#{last_quantity_option_xpath}[1]", text: @ticket_types[0].actual_max_quantity)
-  expect(page).to have_selector("#{last_quantity_option_xpath}[2]", text: @ticket_types[1].actual_max_quantity)
+  expect(page).to have_selector("#{last_quantity_option_xpath}[1]", text: @ticket_types[1].actual_max_quantity)
+  expect(page).to have_selector("#{last_quantity_option_xpath}[2]", text: @ticket_types[0].actual_max_quantity)
 end
 
 When "I select the quantity of tickets" do
