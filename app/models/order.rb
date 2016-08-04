@@ -2,7 +2,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
 
-  has_many :order_items, inverse_of: :order
+  has_many :order_items, inverse_of: :order, dependent: :destroy
 
   validates :user, :event, presence: true
 
