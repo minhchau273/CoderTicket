@@ -35,7 +35,7 @@ And "I can see a list of ticket types" do
   expect(page).to have_selector("#{price_xpath}[1]", text: formatted_price(@ticket_types[0].price))
   expect(page).to have_selector("#{price_xpath}[2]", text: formatted_price(@ticket_types[1].price))
 
-  last_quantity_option_xpath = "(//select[@class='quantity_select']/option[last()])"
+  last_quantity_option_xpath = "(//select[@class='quantity-select']/option[last()])"
   expect(page).to have_selector("#{last_quantity_option_xpath}[1]", text: @ticket_types[0].actual_max_quantity)
   expect(page).to have_selector("#{last_quantity_option_xpath}[2]", text: @ticket_types[1].actual_max_quantity)
 end

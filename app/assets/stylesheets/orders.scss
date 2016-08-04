@@ -39,16 +39,16 @@
     margin-bottom: 80px;
 
     th {
-      color: $mine_shaft_color;
+      color: $mine-shaft-color;
       font-weight: 800;
       text-transform: uppercase;
-      border-bottom: 1px solid $silver_chalice_color;
+      border-bottom: 1px solid $silver-chalice-color;
     }
 
     td {
-      border-top: 1px dashed $silver_chalice_color;
+      border-top: 1px dashed $silver-chalice-color;
 
-      .quantity_select {
+      .quantity-select {
         width: 45px;
       }
     }
@@ -57,7 +57,7 @@
       td {
         font-weight: bold;
         font-size: 18px;
-        color: #4D3414;
+        color: $punga-color;
       }
     }
 

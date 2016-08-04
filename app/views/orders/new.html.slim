@@ -23,7 +23,7 @@
                 td
                   = f.fields_for :order_items, order_item do |ff|
                     = ff.hidden_field :ticket_type_id, value: ff.object.ticket_type_id
-                    = ff.select "quantity", options_for_select(0..ff.object.ticket_type.actual_max_quantity), {}, class: "quantity_select"
+                    = ff.select "quantity", options_for_select(0..ff.object.ticket_type.actual_max_quantity), {}, class: "quantity-select"
       .row
         .col-md-2.col-md-offset-5
           = f.submit "Buy", class: "btn btn-success btn-lg btn-block"
