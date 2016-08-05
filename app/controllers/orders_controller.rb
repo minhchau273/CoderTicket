@@ -7,13 +7,10 @@ class OrdersController < ApplicationController
 
   def new
     @event = Event.find(params[:event_id])
-    order_items = @event.ticket_types.map do |ticket_type|
-      OrderItem.new(ticket_type: ticket_type)
-    end
-    @order = Order.new(order_items: order_items)
     if !@event.has_expired? && !current_user
       store_location_and_require_login
     end
+    @order = Order.build_from_event(@event)
   end
 
   def create

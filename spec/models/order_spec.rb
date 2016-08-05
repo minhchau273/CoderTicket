@@ -17,6 +17,19 @@ RSpec.describe Order, type: :model do
     it { is_expected.to delegate_method(:name).to(:event).with_prefix(true) }
   end
 
+  describe ".build_from_event" do
+    subject { Order.build_from_event(event) }
+
+    let(:event) { create(:event) }
+    let!(:ticket_type_1) { create(:ticket_type, event: event) }
+    let!(:ticket_type_2) { create(:ticket_type, event: event) }
+    let(:assigned_ticket_types) { subject.order_items.map(&:ticket_type) }
+
+    it "builds an order from the given event" do
+      expect(assigned_ticket_types).to match_array [ticket_type_1, ticket_type_2]
+    end
+  end
+
   describe "#total" do
     let(:event) { create(:event) }
     let(:order) { create(:order, event: event) }

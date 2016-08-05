@@ -16,18 +16,22 @@ RSpec.describe OrdersController, type: :controller do
 
     context "this event has not expired" do
       let(:event) { create(:event) }
-      let!(:ticket_type_1) { create(:ticket_type, event: event) }
-      let!(:ticket_type_2) { create(:ticket_type, event: event) }
-      let(:assigned_ticket_types) { assigns(:order).order_items.map(&:ticket_type) }
 
       context "user has already signed in" do
         login
+
+        let(:order) { double }
+
+        before do
+          expect(Order).to receive(:build_from_event).and_return order
+          get :index
+        end
 
         it "is successful and creates new order with some order items based on the ticket types of this event" do
           subject
           expect(response).to be_success
           expect(assigns(:event)).to eq event
-          expect(assigned_ticket_types).to match_array [ticket_type_1, ticket_type_2]
+          expect(assigns(:order)).to eq order
         end
       end
 

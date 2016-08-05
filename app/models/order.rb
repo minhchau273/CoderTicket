@@ -10,6 +10,13 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :order_items
 
+  def self.build_from_event(event)
+    order_items = event.ticket_types.map do |ticket_type|
+      OrderItem.new(ticket_type: ticket_type)
+    end
+    Order.new(order_items: order_items)
+  end
+
   def total
     order_items.map(&:subtotal).sum
   end
