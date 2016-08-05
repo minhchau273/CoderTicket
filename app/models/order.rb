@@ -11,9 +11,9 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :order_items
 
   def self.build_from_event(event)
-    order = Order.new
-    order.order_items.build(event.ticket_types.map { |ticket_type| { ticket_type: ticket_type } })
-    order
+    Order.new.tap do |order|
+      order.order_items.build(event.ticket_types.map { |ticket_type| { ticket_type: ticket_type } })
+    end
   end
 
   def total

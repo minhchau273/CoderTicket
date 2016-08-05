@@ -50,7 +50,7 @@ RSpec.describe OrdersController, type: :controller do
   describe "POST #create" do
     login
 
-    let(:subject) do
+    subject do
       post :create, {
         event_id: event.id,
         order: {
@@ -66,7 +66,7 @@ RSpec.describe OrdersController, type: :controller do
     let(:event) { create(:event) }
     let!(:ticket_type_1) { create(:ticket_type, event: event, price: 50_000) }
     let!(:ticket_type_2) { create(:ticket_type, event: event, price: 100_000) }
-    let!(:ticket_type_3) { create(:ticket_type, event: event, price: 200_000, max_quantity: 2) }
+    let!(:ticket_type_3) { create(:ticket_type, event: event, price: 200_000) }
     let(:new_order) { Order.last }
     let(:order_items) { new_order.order_items.order(:quantity) }
     let(:ordered_ticket_types) { order_items.map(&:ticket_type) }

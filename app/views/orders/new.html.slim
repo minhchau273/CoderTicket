@@ -44,7 +44,6 @@ coffee:
     formattedNumber + " VND"
 
   countTotal = ->
-    selectTags = $(".quantity-select")
     total = 0
     $(".quantity-select").each ->
       total += $(this).data("price") * $(this).val()
