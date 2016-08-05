@@ -3,6 +3,5 @@ When "I visit an order details page" do
 end
 
 When "I visit my order details page" do
-  user = User.find_by(email: VALID_EMAIL)
-  visit order_path create(:order, user: user)
+  visit order_path create(:order, user: @current_user)
 end
