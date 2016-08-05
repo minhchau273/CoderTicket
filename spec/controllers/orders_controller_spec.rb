@@ -24,7 +24,6 @@ RSpec.describe OrdersController, type: :controller do
 
         before do
           expect(Order).to receive(:build_from_event).and_return order
-          get :index
         end
 
         it "is successful and creates new order with some order items based on the ticket types of this event" do
@@ -51,11 +50,10 @@ RSpec.describe OrdersController, type: :controller do
   describe "POST #create" do
     login
 
-    let(:subject) {
+    let(:subject) do
       post :create, {
         event_id: event.id,
         order: {
-          event_id: event.id,
           order_items_attributes: {
             "0" => { "ticket_type_id": ticket_type_1.id, "quantity": "0" },
             "1" => { "ticket_type_id": ticket_type_2.id, "quantity": "1" },
@@ -63,22 +61,21 @@ RSpec.describe OrdersController, type: :controller do
           } 
         }
       }
-    }
+    end
 
     let(:event) { create(:event) }
     let!(:ticket_type_1) { create(:ticket_type, event: event, price: 50_000) }
     let!(:ticket_type_2) { create(:ticket_type, event: event, price: 100_000) }
     let!(:ticket_type_3) { create(:ticket_type, event: event, price: 200_000, max_quantity: 2) }
     let(:new_order) { Order.last }
-    let(:order_items) { Order.last.order_items.order(:quantity) }
+    let(:order_items) { new_order.order_items.order(:quantity) }
     let(:ordered_ticket_types) { order_items.map(&:ticket_type) }
 
     it "creates new order and redirects to this order's details page" do
       expect{ subject }.to change(Order, :count).by(1)
-      expect(new_order.user_id).to eq @user.id
-      expect(ordered_ticket_types).to match_array [ticket_type_2, ticket_type_3]
-      expect(order_items[0].ticket_type).to eq ticket_type_2
-      expect(order_items[1].ticket_type).to eq ticket_type_3
+      expect(new_order.user).to eq @user
+      expect(new_order.event).to eq event
+      expect(ordered_ticket_types).to eq [ticket_type_2, ticket_type_3]
       expect(response).to redirect_to order_path(new_order)
       expect(flash[:notice]).to eq "Order successfully!"
     end

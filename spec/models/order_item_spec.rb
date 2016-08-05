@@ -20,7 +20,7 @@ RSpec.describe OrderItem, type: :model do
 
   describe "#subtotal" do
     let(:type) { create(:ticket_type, price: 50_000) }
-    let!(:item) { create(:order_item, ticket_type: type, quantity: 2) }
+    let(:item) { create(:order_item, ticket_type: type, quantity: 2) }
 
     it "returns subtotal of this order item" do
       expect(item.subtotal).to eq 100_000

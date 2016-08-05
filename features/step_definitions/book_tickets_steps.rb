@@ -26,7 +26,7 @@ Then "I should be at the Home page" do
   expect(page).to have_current_path root_path
 end
 
-And "I can see a list of ticket types order by price desc" do
+And "I can see a list of ticket types in descending order of prices" do
   name_xpath = "(//td[@class='ticket-name'])"
   expect(page).to have_selector "#{name_xpath}[1]", text: @ticket_types[1].name
   expect(page).to have_selector "#{name_xpath}[2]", text: @ticket_types[0].name
@@ -46,4 +46,8 @@ end
 
 Then "I should be redirected to the order's details page" do
   expect(page).to have_current_path order_path Order.last
+end
+
+And "I can see the order's total" do
+  step "I can see \"200,000 VND\""
 end

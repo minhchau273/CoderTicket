@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :users
   resources :orders, only: [:index, :show]
 
-  resources :events do
+  resources :events, except: :destroy do
     resources :orders, only: [:create, :new]
   end
   # The priority is based upon order of creation: first created -> highest priority.

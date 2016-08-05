@@ -14,8 +14,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
-    if @order.save
+    if (@order = Order.new(order_params)).save
       flash[:notice] = "Order successfully!"
       redirect_to order_path(@order)
     else
@@ -28,6 +27,7 @@ class OrdersController < ApplicationController
   def order_params
     order_params = params.require(:order).permit(:event_id, order_items_attributes: [:quantity, :ticket_type_id])
     order_params["user_id"] = current_user.id
+    order_params["event_id"] = params[:event_id]
     order_params["order_items_attributes"] = order_params["order_items_attributes"].keep_if do |_, value|
       value["quantity"].to_i > 0
     end.values

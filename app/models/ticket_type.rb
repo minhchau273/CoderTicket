@@ -7,7 +7,6 @@ class TicketType < ActiveRecord::Base
   validates :name, uniqueness: true
 
   def actual_max_quantity
-    remain = max_quantity - order_items.sum(:quantity)
-    remain < MAX_QUANTITY ? remain : MAX_QUANTITY
+    [max_quantity - order_items.sum(:quantity), MAX_QUANTITY].min
   end
 end
