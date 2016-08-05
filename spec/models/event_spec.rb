@@ -25,7 +25,7 @@ RSpec.describe Event, type: :model do
   describe "scopes" do
     describe ".upcoming" do
       let!(:event_1) { create(:event, starts_at: 2.weeks.since) }
-      let!(:event_2) { create(:event, starts_at: 2.weeks.ago) }
+      let!(:event_2) { create(:expired_event) }
       let!(:event_3) { create(:event, starts_at: 1.week.since) }
 
       it "returns upcoming events" do
@@ -106,12 +106,12 @@ RSpec.describe Event, type: :model do
     subject { event.has_expired? }
 
     context "this event has expired" do
-      let(:event) { create(:event, starts_at: 1.week.ago) }
+      let(:event) { create(:expired_event) }
       it { is_expected.to be_truthy }
     end
 
     context "this event has not expired" do
-      let(:event) { create(:event, starts_at: 1.week.since) }
+      let(:event) { create(:event) }
       it { is_expected.to be_falsey }
     end
   end

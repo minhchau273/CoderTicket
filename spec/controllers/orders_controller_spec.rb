@@ -5,7 +5,7 @@ RSpec.describe OrdersController, type: :controller do
     subject { get :new, event_id: event.id }
 
     context "this event has expired" do
-      let!(:event) { create(:event, starts_at: 1.week.ago) }
+      let!(:event) { create(:expired_event) }
 
       it "is successful" do
         subject
@@ -15,7 +15,7 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     context "this event has not expired" do
-      let(:event) { create(:event, starts_at: 1.week.since) }
+      let(:event) { create(:event) }
       let!(:ticket_type_1) { create(:ticket_type, event: event) }
       let!(:ticket_type_2) { create(:ticket_type, event: event) }
       let(:assigned_ticket_types) { assigns(:order).order_items.map(&:ticket_type) }
