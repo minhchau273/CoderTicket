@@ -22,9 +22,12 @@
                 td.ticket-price.center
                   = formatted_price(order_item.ticket_type_price)
                 td.center
-                  = f.fields_for :order_items, order_item do |ff|
-                    = ff.hidden_field :ticket_type_id, value: ff.object.ticket_type_id
-                    = ff.select "quantity", options_for_select(0..ff.object.ticket_type.actual_max_quantity), {}, class: "quantity-select", data: { price: ff.object.ticket_type_price }
+                  - if order_item.ticket_type.actual_max_quantity < 1
+                    | Sold out
+                  - else
+                    = f.fields_for :order_items, order_item do |ff|
+                      = ff.hidden_field :ticket_type_id, value: ff.object.ticket_type_id
+                      = ff.select "quantity", options_for_select(0..ff.object.ticket_type.actual_max_quantity), {}, class: "quantity-select", data: { price: ff.object.ticket_type_price }
             tfoot
               tr
                 td.center[colspan="2"]

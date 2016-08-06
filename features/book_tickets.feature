@@ -4,6 +4,7 @@ Feature: Book tickets
 
   Background:
     Given There are some events
+    And There is a sold out ticket type
     And There is a registered user
     And I am at Home page
 
@@ -22,10 +23,13 @@ Feature: Book tickets
     And I click Book Now button
     Then I should be at the Booking page
     And I can see a list of ticket types in descending order of prices
+    And I can see "Sold out"
+    And I can see "0 VND"
     When I click "Buy"
     Then I can see "Please choose at least 1 ticket to continue!"
     When I select the quantity of tickets
-    And I click "Buy"
+    Then I can see the order's total
+    When I click "Buy"
     Then I should be redirected to the order's details page
     And I can see "Order successfully!"
     And I can see the order's total

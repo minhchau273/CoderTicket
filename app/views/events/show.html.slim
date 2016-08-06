@@ -15,7 +15,7 @@
               = formatted_price(ticket_type.price)
           .clearfix
         = link_to new_event_order_path(@event) do
-          button.btn.btn-lg.btn-block.btn-danger.book-button class=("disabled" if @event.has_expired?)
+          button.btn.btn-lg.btn-block.btn-danger.book-now-button class=("disabled" if @event.has_expired?)
             |  BOOK NOW 
     .col-md-9.event-content
       .hero-img.hidden-sm-down style=("background-image: url(#{@event.hero_image_url}); background-size: cover")

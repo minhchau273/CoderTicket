@@ -11,6 +11,7 @@ RSpec.describe TicketType, type: :model do
     it { is_expected.to validate_presence_of :price }
     it { is_expected.to validate_presence_of :max_quantity }
     it { is_expected.to validate_uniqueness_of :name }
+    it { is_expected.to validate_numericality_of(:max_quantity).is_greater_than(0) }
   end
 
   describe "#actual_max_quantity" do

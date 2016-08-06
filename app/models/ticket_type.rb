@@ -5,6 +5,7 @@ class TicketType < ActiveRecord::Base
 
   validates :name, :price, :max_quantity, presence: true
   validates :name, uniqueness: true
+  validates :max_quantity, numericality: { greater_than: 0 }
 
   def actual_max_quantity
     [max_quantity - order_items.sum(:quantity), MAX_QUANTITY].min
