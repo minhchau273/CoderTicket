@@ -20,4 +20,8 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:previous_url] || root_path)
     session[:previous_url] = nil
   end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: exception.message
+  end
 end

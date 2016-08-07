@@ -1,16 +1,26 @@
 class OrdersController < ApplicationController
   def show
-    if !current_user || current_user != (@order = Order.find(params[:id])).user
-      @access_denied = true
+    if @order = Order.find_by(id: params[:id])
+      authorize! :read, @order
+    else
+      redirect_to root_path, alert: ORDER_NOT_FOUND
     end
   end
 
   def new
-    @event = Event.find(params[:event_id])
-    if !@event.has_expired? && !current_user
-      store_location_and_require_login
+    if @event = Event.find_by(id: params[:event_id])
+      if @event.has_expired?
+        redirect_to root_path, alert: EXPIRED_EVENT
+      else
+        @order = Order.build_from_event(@event)
+        authorize! :create, @order
+      end
+    else
+      redirect_to root_path, alert: EVENT_NOT_FOUND
     end
-    @order = Order.build_from_event(@event)
+
+  rescue CanCan::AccessDenied
+    store_location_and_require_login
   end
 
   def create

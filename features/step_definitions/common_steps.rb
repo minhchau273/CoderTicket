@@ -24,3 +24,20 @@ Then "I sign in" do
   step "I click \"Sign In\""
   @current_user = User.find_by(email: VALID_EMAIL)
 end
+
+And "I can see access denied message" do
+  step "I can see \"#{ACCESS_DENIED}\""
+end
+
+And "There are some events" do
+  @events = [
+    create(:event, name: "New event 1", starts_at: 2.weeks.since),
+    create(:expired_event, name: "Old event 2"),
+    create(:event, name: "New event 3", starts_at: 1.week.since)
+  ]
+
+  @ticket_types = [
+    create(:ticket_type, name: "Type 1", event: @events[0], price: 50_000),
+    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 5)
+  ]
+end

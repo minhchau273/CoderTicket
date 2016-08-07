@@ -1,37 +1,34 @@
-- if @access_denied
-  = render partial: "error", locals: { error: "Access denied!" }
-- else
-  .container-fluid.tickets-buy
-    = render partial: "header", locals: { event: @order.event }
-    .row
-      .col-md-11.col-md-offset-1
-        - if flash[:notice]
-          .alert.alert-success.order-message
-            = flash[:notice]
-        table.table
-          thead
-            th.center
-              |  No.
-            th
-              |  Ticket Type Name
-            th.center
-              |  Quantity
-            th.center
-              |  Subtotal
-          tbody
-            - @order.order_items.each_with_index do |item, index|
-              tr
-                td.center
-                  = index + 1
-                td
-                  = item.ticket_type_name
-                td.center
-                  = item.quantity
-                td.center
-                  = formatted_price(item.subtotal)
-          tfoot
+.container-fluid.tickets-buy
+  = render partial: "header", locals: { event: @order.event }
+  .row
+    .col-md-11.col-md-offset-1
+      - if flash[:notice]
+        .alert.alert-success.order-message
+          = flash[:notice]
+      table.table
+        thead
+          th.center
+            |  No.
+          th
+            |  Ticket Type Name
+          th.center
+            |  Quantity
+          th.center
+            |  Subtotal
+        tbody
+          - @order.order_items.each_with_index do |item, index|
             tr
-              td.center[colspan="3"]
-                | Total
               td.center
-                = formatted_price(@order.total)
+                = index + 1
+              td
+                = item.ticket_type_name
+              td.center
+                = item.quantity
+              td.center
+                = formatted_price(item.subtotal)
+        tfoot
+          tr
+            td.center[colspan="3"]
+              | Total
+            td.center
+              = formatted_price(@order.total)
