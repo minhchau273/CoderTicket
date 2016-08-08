@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
   helper_method :current_user
@@ -19,5 +17,14 @@ class ApplicationController < ActionController::Base
   def redirect_back_or_default
     redirect_to(session[:previous_url] || root_path)
     session[:previous_url] = nil
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_path, alert: exception.message
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    model_name = exception.message.match(/Couldn't find (\w+)/).try(:[], 1) || "resource"
+    redirect_to root_path, alert: "This #{model_name.downcase} is not available."
   end
 end

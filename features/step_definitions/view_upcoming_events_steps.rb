@@ -3,19 +3,6 @@ Capybara.default_selector = :xpath
 KEYWORD = "1"
 DUMMY_KEYWORD = "dummy"
 
-And "There are some events" do
-  @events = [
-    create(:event, name: "New event 1", starts_at: 2.weeks.since),
-    create(:expired_event, name: "Old event 2"),
-    create(:event, name: "New event 3", starts_at: 1.week.since)
-  ]
-
-  @ticket_types = [
-    create(:ticket_type, name: "Type 1", event: @events[0], price: 50_000),
-    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 5)
-  ]
-end
-
 And "I can see list of upcoming events ordered by started time" do
   base_xpath = "(//h4[@class='card-title'])"
   expect(page).to have_selector "#{base_xpath}[1]", text: @events[2].name

@@ -8,6 +8,11 @@ Feature: Book tickets
     And There is a registered user
     And I am at Home page
 
+  Scenario: I go to an unavailable event's Booking page
+    When I visit an unavailable event's booking page
+    Then I should be at the Home page
+    And I can see "This event is not available."
+
   Scenario: I haven't signed in yet and go to Booking page
     When I click on an event
     And I click Book Now button
@@ -38,6 +43,5 @@ Feature: Book tickets
     When I visit an expired event page
     Then The Book Now button should be disabled
     When I visit an expired event's booking page
-    Then I can see "This event is no longer available."
-    And I wait for 5 seconds
     Then I should be at the Home page
+    And I can see "This event is no longer available."

@@ -2,46 +2,53 @@ require "rails_helper"
 
 RSpec.describe OrdersController, type: :controller do
   describe "GET #new" do
-    subject { get :new, event_id: event.id }
+    subject { get :new, event_id: event_id }
 
-    context "this event has expired" do
-      let!(:event) { create(:expired_event) }
-
-      it "is successful" do
-        subject
-        expect(response).to be_success
-        expect(assigns(:event)).to eq event
+    context "this event does not exist" do
+      it_behaves_like "show error", "This event is not available." do
+        let(:event_id) { INVALID_ID }
+        before { subject }
       end
     end
 
-    context "this event has not expired" do
-      let(:event) { create(:event) }
-
-      context "user has already signed in" do
-        login
-
-        let(:order) { double }
-
-        before do
-          expect(Order).to receive(:build_from_event).and_return order
-        end
-
-        it "is successful and creates new order with some order items based on the ticket types of this event" do
-          subject
-          expect(response).to be_success
-          expect(assigns(:event)).to eq event
-          expect(assigns(:order)).to eq order
+    context "this event exists" do
+      context "this event has expired" do
+        it_behaves_like "show error", EXPIRED_EVENT do
+          let(:event_id) { create(:expired_event).id }
+          before { subject }
         end
       end
 
-      context "user has not signed in yet" do
-        before do
-          expect(controller).to receive(:store_location_and_require_login).and_call_original
-          subject
+      context "this event has not expired" do
+        let(:event) { create(:event) }
+        let(:event_id) { event.id }
+
+        context "user has already signed in" do
+          login
+
+          let(:order) { create(:order) }
+
+          before do
+            expect(Order).to receive(:build_from_event).with(event).and_return order
+            subject
+          end
+
+          it "is successful and creates new order with some order items based on the ticket types of this event" do
+            expect(response).to be_success
+            expect(assigns(:event)).to eq event
+            expect(assigns(:order)).to eq order
+          end
         end
 
-        it "redirects to Sign in page" do
-          expect(response).to redirect_to login_path
+        context "user has not signed in yet" do
+          before do
+            expect(controller).to receive(:store_location_and_require_login).and_call_original
+            subject
+          end
+
+          it "redirects to Sign in page" do
+            expect(response).to redirect_to login_path
+          end
         end
       end
     end
@@ -82,42 +89,42 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe "GET #show" do
-    context "user has not signed in yet" do
-      before do
-        get :show, id: Faker::Number.between(1, 10)
-      end
+    subject { get :show, id: order_id }
 
-      it "is successful and returns access denied error" do
-        expect(response).to be_success
-        expect(assigns(:order)).to be_nil
-        expect(assigns(:access_denied)).to be_truthy
+    context "this order does not exist" do
+      it_behaves_like "show error", "This order is not available." do
+        let(:order_id) { INVALID_ID }
+        before { subject }
       end
     end
 
-    context "user has already signed in" do
-      login
+    context "this order exists" do
+      let(:order) { create(:order) }
+      let(:order_id) { order.id }
 
-      subject { get :show, id: order.id }
-
-      context "current user is not the owner of this order" do
-        let(:order) { create(:order) }
-
-        it "is successful and returns access denied error" do
-          subject
-          expect(response).to be_success
-          expect(assigns(:order)).to eq order
-          expect(assigns(:access_denied)).to be_truthy
+      context "user has not signed in yet" do
+        it_behaves_like "show error", ACCESS_DENIED do
+          before { subject }
         end
       end
 
-      context "current user is the owner of this order" do
-        let(:order) { create(:order, user: @user) }
+      context "user has already signed in" do
+        login
 
-        it "is successful" do
-          subject
-          expect(response).to be_success
-          expect(assigns(:order)).to eq order
-          expect(assigns(:access_denied)).to be_falsey
+        context "current user is not the owner of this order" do
+          it_behaves_like "show error", ACCESS_DENIED do
+            before { subject }
+          end
+        end
+
+        context "current user is the owner of this order" do
+          let(:order) { create(:order, user: @user) }
+
+          it "is successful" do
+            subject
+            expect(response).to be_success
+            expect(assigns(:order)).to eq order
+          end
         end
       end
     end

@@ -4,6 +4,10 @@ And "There is a sold out ticket type" do
   create(:order_item, order: order, ticket_type: @sold_out_ticket_type, quantity: @sold_out_ticket_type.max_quantity)
 end
 
+When "I visit an unavailable event's booking page" do
+  visit new_event_order_path INVALID_ID
+end
+
 When "I click Book Now button" do
   sleep 1
   find(:css, ".book-now-button").click
@@ -23,10 +27,6 @@ end
 
 When "I visit an expired event's booking page" do
   visit new_event_order_path @events[1]
-end
-
-And(/^I wait for (\d+) seconds?$/) do |n|
-  sleep n.to_i
 end
 
 Then "I should be at the Home page" do

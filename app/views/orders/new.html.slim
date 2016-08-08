@@ -1,45 +1,42 @@
-- if @event.has_expired?
-  = render partial: "error", locals: { error: "This event is no longer available." }
-- else
-  .container-fluid.tickets-buy
-    = render partial: "header", locals: { event: @event }
-    = form_for [@event, @order] do |f|
-      .row
-        .col-md-11.col-md-offset-1
-          table.table
-            thead
-              th
-                |  Ticket Type
-              th.center
-                |  Unit Price
-              th.center
-                |  Quantity
-            tbody
-            - f.object.order_items.each do |order_item|
-              tr
-                td.ticket-name
-                  = order_item.ticket_type_name
-                td.ticket-price.center
-                  = formatted_price(order_item.ticket_type_price)
-                td.center
-                  - if order_item.ticket_type.actual_max_quantity < 1
-                    | Sold out
-                  - else
-                    = f.fields_for :order_items, order_item do |ff|
-                      = ff.hidden_field :ticket_type_id, value: ff.object.ticket_type_id
-                      = ff.select "quantity", options_for_select(0..ff.object.ticket_type.actual_max_quantity), {}, class: "quantity-select", data: { price: ff.object.ticket_type_price }
-            tfoot
-              tr
-                td.center[colspan="2"]
-                  | Total
-                td.order-total.center
-                  = formatted_price(0)
-          .alert.alert-danger.order-error
-            | Please choose at least 1 ticket to continue!
-      .row
-        .col-md-2.col-md-offset-5
-          = f.submit "Buy", class: "btn btn-success btn-lg btn-block btn-submit"
-        div
+.container-fluid.tickets-buy
+  = render partial: "header", locals: { event: @event }
+  = form_for [@event, @order] do |f|
+    .row
+      .col-md-11.col-md-offset-1
+        table.table
+          thead
+            th
+              |  Ticket Type
+            th.center
+              |  Unit Price
+            th.center
+              |  Quantity
+          tbody
+          - f.object.order_items.each do |order_item|
+            tr
+              td.ticket-name
+                = order_item.ticket_type_name
+              td.ticket-price.center
+                = formatted_price(order_item.ticket_type_price)
+              td.center
+                - if order_item.ticket_type.actual_max_quantity < 1
+                  | Sold out
+                - else
+                  = f.fields_for :order_items, order_item do |ff|
+                    = ff.hidden_field :ticket_type_id, value: ff.object.ticket_type_id
+                    = ff.select "quantity", options_for_select(0..ff.object.ticket_type.actual_max_quantity), {}, class: "quantity-select", data: { price: ff.object.ticket_type_price }
+          tfoot
+            tr
+              td.center[colspan="2"]
+                | Total
+              td.order-total.center
+                = formatted_price(0)
+        .alert.alert-danger.order-error
+          | Please choose at least 1 ticket to continue!
+    .row
+      .col-md-2.col-md-offset-5
+        = f.submit "Buy", class: "btn btn-success btn-lg btn-block btn-submit"
+      div
 
 coffee:
   formatNumber = (number) ->
