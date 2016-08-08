@@ -25,10 +25,6 @@ Then "I sign in" do
   @current_user = User.find_by(email: VALID_EMAIL)
 end
 
-And "I can see access denied message" do
-  step "I can see \"#{ACCESS_DENIED}\""
-end
-
 And "There are some events" do
   @events = [
     create(:event, name: "New event 1", starts_at: 2.weeks.since),

@@ -29,10 +29,6 @@ When "I visit an expired event's booking page" do
   visit new_event_order_path @events[1]
 end
 
-And "I can see expired event message" do
-  step "I can see \"#{EXPIRED_EVENT}\""
-end
-
 Then "I should be at the Home page" do
   expect(page).to have_current_path root_path
 end

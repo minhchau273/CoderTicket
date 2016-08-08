@@ -44,5 +44,4 @@ Feature: Book tickets
     Then The Book Now button should be disabled
     When I visit an expired event's booking page
     Then I should be at the Home page
-    And I can see expired event message
-    Then I should be at the Home page
+    And I can see "This event is no longer available."
