@@ -2,32 +2,28 @@ require "rails_helper"
 
 RSpec.describe OrdersController, type: :controller do
   describe "GET #new" do
-    context "this event does not exist" do
-      before do
-        get :new, event_id: INVALID_ID
-      end
+    subject { get :new, event_id: event_id }
 
-      it "redirects to Home page and shows error message" do
-        expect(response).to redirect_to root_path
-        expect(flash[:alert]).to eq "This event is not available."
+    context "this event does not exist" do
+      it_behaves_like "show error", "This event is not available." do
+        let(:event_id) { INVALID_ID }
+        before { subject }
       end
     end
 
     context "this event exists" do
-      subject { get :new, event_id: event.id }
-      
       context "this event has expired" do
-        let!(:event) { create(:expired_event) }
+        let(:event) { create(:expired_event) }
+        let(:event_id) { event.id }
 
-        it "redirects to Home page and shows error message" do
-          subject
-          expect(response).to redirect_to root_path
-          expect(flash[:alert]).to eq EXPIRED_EVENT
+        it_behaves_like "show error", EXPIRED_EVENT do
+          before { subject }
         end
       end
 
       context "this event has not expired" do
         let(:event) { create(:event) }
+        let(:event_id) { event.id }
 
         context "user has already signed in" do
           login
@@ -95,20 +91,18 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe "GET #show" do
-    context "this order does not exist" do
-      before do
-        get :show, id: INVALID_ID
-      end
+    subject { get :show, id: order_id }
 
-      it "redirects to Home page and shows error message" do
-        expect(response).to redirect_to root_path
-        expect(flash[:alert]).to eq "This order is not available."
+    context "this order does not exist" do
+      it_behaves_like "show error", "This order is not available." do
+        let(:order_id) { INVALID_ID }
+        before { subject }
       end
     end
 
     context "this order exists" do
-      subject { get :show, id: order.id }
       let(:order) { create(:order) }
+      let(:order_id) { order.id }
 
       context "user has not signed in yet" do
         it "redirects to Home page and shows error message" do
@@ -122,10 +116,8 @@ RSpec.describe OrdersController, type: :controller do
         login
 
         context "current user is not the owner of this order" do
-          it "redirects to Home page and shows error message" do
-            subject
-            expect(response).to redirect_to root_path
-            expect(flash[:alert]).to eq ACCESS_DENIED
+          it_behaves_like "show error", ACCESS_DENIED do
+            before { subject }
           end
         end
 
