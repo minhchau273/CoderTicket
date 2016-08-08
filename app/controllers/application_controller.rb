@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
-    model_name = exception.message.match(/Couldn't find (\w+)/)[1] || "resource"
+    model_name = exception.message.match(/Couldn't find (\w+)/).try(:[], 1) || "resource"
     redirect_to root_path, alert: "This #{model_name.downcase} is not available."
   end
 end

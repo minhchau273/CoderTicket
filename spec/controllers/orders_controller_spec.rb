@@ -13,10 +13,8 @@ RSpec.describe OrdersController, type: :controller do
 
     context "this event exists" do
       context "this event has expired" do
-        let(:event) { create(:expired_event) }
-        let(:event_id) { event.id }
-
         it_behaves_like "show error", EXPIRED_EVENT do
+          let(:event_id) { create(:expired_event).id }
           before { subject }
         end
       end
@@ -32,10 +30,10 @@ RSpec.describe OrdersController, type: :controller do
 
           before do
             expect(Order).to receive(:build_from_event).with(event).and_return order
+            subject
           end
 
           it "is successful and creates new order with some order items based on the ticket types of this event" do
-            subject
             expect(response).to be_success
             expect(assigns(:event)).to eq event
             expect(assigns(:order)).to eq order
@@ -105,10 +103,8 @@ RSpec.describe OrdersController, type: :controller do
       let(:order_id) { order.id }
 
       context "user has not signed in yet" do
-        it "redirects to Home page and shows error message" do
-          subject
-          expect(response).to redirect_to root_path
-          expect(flash[:alert]).to eq ACCESS_DENIED
+        it_behaves_like "show error", ACCESS_DENIED do
+          before { subject }
         end
       end
 
@@ -122,10 +118,7 @@ RSpec.describe OrdersController, type: :controller do
         end
 
         context "current user is the owner of this order" do
-          before do
-            order.user = @user
-            order.save!
-          end
+          let(:order) { create(:order, user: @user) }
 
           it "is successful" do
             subject
