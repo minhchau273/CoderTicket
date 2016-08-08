@@ -1,0 +1,38 @@
+.container-fluid.tickets-buy
+  .row.tickets-header
+    .col-xs-12.col-md-11.col-md-offset-1
+      h3
+        | Order Management
+      .pull-left
+        = fa_icon "ticket"
+      .venue-details
+        = "#{@orders.count} order(s)"
+      .pull-left
+        = fa_icon "money"
+      .time-details
+        = formatted_price(current_user.total_amount)
+  .row
+    .col-md-11.col-md-offset-1
+      table.table.order-list
+        th.center
+          |  No.
+        th
+          |  Event
+        th.center
+          | Booking Date
+        th.center
+          |  Total
+        - @orders.each_with_index do |order, index|
+          tr[data-href=order_path(order)]
+            td.center
+              = index + 1
+            td.event-name
+              = order.event_name
+            td.center.booking-time
+              = order.created_at_to_s
+            td.center.order-total
+              = formatted_price(order.total)
+
+coffee:
+  $("tr[data-href]").click ->
+    window.location = $(this).data("href")

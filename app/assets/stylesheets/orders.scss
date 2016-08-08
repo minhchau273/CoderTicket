@@ -44,6 +44,7 @@
 
     th {
       color: $mine-shaft-color;
+      background-color: $logan-color;
       font-weight: 800;
       text-transform: uppercase;
       border-bottom: 1px solid $silver-chalice-color;
@@ -67,6 +68,13 @@
 
     .center {
       text-align: center;
+    }
+  }
+
+  .order-list {
+    tr:not(:first-child):hover {
+      cursor: pointer;
+      background-color: $mischka-color;
     }
   }
 }

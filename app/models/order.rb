@@ -19,4 +19,8 @@ class Order < ActiveRecord::Base
   def total
     order_items.map(&:subtotal).sum
   end
+
+  def created_at_to_s
+    created_at.strftime(SHORT_DATE_FORMAT)
+  end
 end

@@ -43,4 +43,13 @@ RSpec.describe Order, type: :model do
       expect(order.total).to eq 250_000
     end
   end
+
+  describe "#created_at_to_s" do
+    let(:order) { create(:order, created_at: DateTime.new(2016, 7, 7, 8, 0, 0)) }
+    let(:expected_date_string) { "Jul 07, 2016" }
+
+    it "returns created_at as string with short date format" do
+      expect(order.created_at_to_s).to eq expected_date_string
+    end
+  end
 end

@@ -46,9 +46,7 @@ RSpec.describe OrdersController, type: :controller do
             subject
           end
 
-          it "redirects to Sign in page" do
-            expect(response).to redirect_to login_path
-          end
+          it_behaves_like "require signing in"
         end
       end
     end
@@ -127,6 +125,37 @@ RSpec.describe OrdersController, type: :controller do
           end
         end
       end
+    end
+  end
+
+  describe "GET #index" do
+    subject { get :index }
+
+    context "user has already signed in" do
+      login
+
+      let(:order_1) { create(:order, user: @user, created_at: 3.weeks.ago) }
+      let(:order_2) { create(:order, user: @user, created_at: 2.weeks.ago) }
+      let(:order_3) { create(:order) }
+      let(:orders) { [order_2, order_1] }
+
+      before do
+        subject
+      end
+
+      it "is successful and creates new order with some order items based on the ticket types of this event" do
+        expect(response).to be_success
+        expect(assigns(:orders)).to eq orders
+      end
+    end
+
+    context "user has not signed in yet" do
+      before do
+        expect(controller).to receive(:store_location_and_require_login).and_call_original
+        subject
+      end
+
+      it_behaves_like "require signing in"
     end
   end
 end

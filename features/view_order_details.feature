@@ -1,10 +1,11 @@
 @javascript
 Feature: View my orders
-  I want to view a list of my orders and order details
+  I want to view order details
 
   Background:
     Given There are some events
     And There is a registered user
+    And I have some orders
     And I am at Home page
 
   Scenario: I go to an unavailable order details
@@ -26,4 +27,5 @@ Feature: View my orders
   Scenario: I have already signed in and go to my order details
     When I sign in
     And I visit my order details page
-    Then I can see "Total"
+    Then I can see event's information
+    And I can see a list of ticket types in my order

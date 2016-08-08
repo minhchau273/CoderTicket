@@ -16,7 +16,7 @@
             tr
               td.ticket-name
                 = order_item.ticket_type_name
-              td.ticket-price.center
+              td.center.ticket-price
                 = formatted_price(order_item.ticket_type_price)
               td.center
                 - if order_item.ticket_type.actual_max_quantity < 1
@@ -29,7 +29,7 @@
             tr
               td.center[colspan="2"]
                 | Total
-              td.order-total.center
+              td.center.order-total
                 = formatted_price(0)
         .alert.alert-danger.order-error
           | Please choose at least 1 ticket to continue!

@@ -22,6 +22,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def index
+    authorize! :read, Order
+    @orders = current_user.orders
+  rescue CanCan::AccessDenied
+    store_location_and_require_login
+  end
+
   private
 
   def load_order

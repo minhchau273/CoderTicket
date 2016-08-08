@@ -1,5 +1,5 @@
 And "There is a sold out ticket type" do
-  @sold_out_ticket_type = create(:ticket_type, name: "Type 3", event: @events[0], price: 80_000, max_quantity: 5)
+  @sold_out_ticket_type = create(:ticket_type, name: "VIP", event: @events[0], price: 80_000, max_quantity: 5)
   order = create(:order, event: @events[0])
   create(:order_item, order: order, ticket_type: @sold_out_ticket_type, quantity: @sold_out_ticket_type.max_quantity)
 end
@@ -39,7 +39,7 @@ And "I can see a list of ticket types in descending order of prices" do
   expect(page).to have_selector "#{name_xpath}[2]", text: @sold_out_ticket_type.name
   expect(page).to have_selector "#{name_xpath}[3]", text: @ticket_types[0].name
 
-  price_xpath = "(//td[@class='ticket-price center'])"
+  price_xpath = "(//td[@class='center ticket-price'])"
   expect(page).to have_selector "#{price_xpath}[1]", text: formatted_price(@ticket_types[1].price)
   expect(page).to have_selector "#{price_xpath}[2]", text: formatted_price(@sold_out_ticket_type.price)
   expect(page).to have_selector "#{price_xpath}[3]", text: formatted_price(@ticket_types[0].price)
