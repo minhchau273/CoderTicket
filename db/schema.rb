@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160730024223) do
+ActiveRecord::Schema.define(version: 20160731171127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,27 @@ ActiveRecord::Schema.define(version: 20160730024223) do
   add_index "events", ["category_id"], name: "index_events_on_category_id", using: :btree
   add_index "events", ["venue_id"], name: "index_events_on_venue_id", using: :btree
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "ticket_type_id"
+    t.integer  "quantity"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
+  add_index "order_items", ["ticket_type_id"], name: "index_order_items_on_ticket_type_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "orders", ["event_id"], name: "index_orders_on_event_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
   create_table "regions", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -50,7 +71,6 @@ ActiveRecord::Schema.define(version: 20160730024223) do
     t.integer  "max_quantity"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "remain"
   end
 
   add_index "ticket_types", ["event_id"], name: "index_ticket_types_on_event_id", using: :btree
@@ -75,6 +95,10 @@ ActiveRecord::Schema.define(version: 20160730024223) do
 
   add_foreign_key "events", "categories"
   add_foreign_key "events", "venues"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "ticket_types"
+  add_foreign_key "orders", "events"
+  add_foreign_key "orders", "users"
   add_foreign_key "ticket_types", "events"
   add_foreign_key "venues", "regions"
 end

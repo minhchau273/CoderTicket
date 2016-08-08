@@ -15,7 +15,3 @@
 //= require tether
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require events
-//= require sessions
-//= require tickets
-//= require users

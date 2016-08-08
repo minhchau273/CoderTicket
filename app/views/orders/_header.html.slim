@@ -1,0 +1,14 @@
+.row.tickets-header
+  .col-xs-12.col-md-11.col-md-offset-1
+    h3
+      = event.name
+    .pull-left
+      = fa_icon "map-marker"
+    .venue-details
+      = event.venue.name
+      br
+      = event.venue.full_address
+    .pull-left
+      = fa_icon "clock-o"
+    .time-details
+      = event.starts_at_to_s

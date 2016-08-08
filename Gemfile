@@ -19,6 +19,8 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'byebug'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'faker'
 end
 
 group :development do
@@ -28,8 +30,6 @@ end
 group :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
-  gem 'factory_girl_rails', '~> 4.0'
-  gem 'faker'
   gem 'rspec-rails', '~> 3.0'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 2.8.0'

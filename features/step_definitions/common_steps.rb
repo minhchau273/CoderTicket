@@ -22,4 +22,5 @@ Then "I sign in" do
   step "I click \"Sign In\""
   step "I input valid email and password to sign in"
   step "I click \"Sign In\""
+  @current_user = User.find_by(email: VALID_EMAIL)
 end

@@ -4,7 +4,8 @@ RSpec.describe Event, type: :model do
   describe "relationships" do
     it { is_expected.to belong_to :venue }
     it { is_expected.to belong_to :category }
-    it { is_expected.to have_many :ticket_types }
+    it { is_expected.to have_many(:ticket_types).order(price: :desc).dependent(:destroy) }
+    it { is_expected.to have_many :orders }
   end
 
   describe "validations" do
@@ -24,7 +25,7 @@ RSpec.describe Event, type: :model do
   describe "scopes" do
     describe ".upcoming" do
       let!(:event_1) { create(:event, starts_at: 2.weeks.since) }
-      let!(:event_2) { create(:event, starts_at: 2.weeks.ago) }
+      let!(:event_2) { create(:expired_event) }
       let!(:event_3) { create(:event, starts_at: 1.week.since) }
 
       it "returns upcoming events" do
@@ -36,8 +37,9 @@ RSpec.describe Event, type: :model do
   describe ".search" do
     let(:keyword) { "  loReM  iPsUm   " }
     let!(:event_1) { create(:event, name: "Lorem event", starts_at: 2.weeks.since) }
-    let!(:event_2) { create(:event, name: "Lorem ipsum", starts_at: 2.weeks.ago) }
+    let!(:event_2) { create(:expired_event, name: "Lorem ipsum") }
     let!(:event_3) { create(:event, name: "Event ipsum", starts_at: 1.week.since) }
+    let!(:event_4) { create(:event, name: "Coderschool event") }
 
     it "returns the results satisfied the keyword" do
       expect(Event.search(keyword)).to eq [event_3, event_1]
@@ -104,12 +106,12 @@ RSpec.describe Event, type: :model do
     subject { event.has_expired? }
 
     context "this event has expired" do
-      let(:event) { create(:event, starts_at: 1.week.ago) }
+      let(:event) { create(:expired_event) }
       it { is_expected.to be_truthy }
     end
 
     context "this event has not expired" do
-      let(:event) { create(:event, starts_at: 1.week.since) }
+      let(:event) { create(:event) }
       it { is_expected.to be_falsey }
     end
   end

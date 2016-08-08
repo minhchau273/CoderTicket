@@ -14,27 +14,15 @@
   input {
     margin: auto;
     margin-top: 20px;
-    border-bottom-color: $emperor_color;
-    border-bottom-left-radius: 2px;
-    border-bottom-style: none;
-    border-bottom-width: 0px;
-    border-left-color: $emperor_color;
-    border-left-style: none;
-    border-left-width: 0px;
-    border-right-color: $emperor_color;
-    border-right-style: none;
-    border-right-width: 0px;
-    border-top-color: $emperor_color;
-    border-top-left-radius: 2px;
-    border-top-style: none;
-    border-top-width: 0px;
-    color: $emperor_color;
+    border: 0 none $emperor-color;
+    border-radius: 4px;
+    color: $emperor-color;
     display: block;
     font-size: 17px;
     height: 54px;
     line-height: 24.2857px;
     max-width: 100%;
-    outline-color: $emperor_color;
+    outline-color: $emperor-color;
     padding-bottom: 0px;
     padding-left: 19px;
     padding-right: 19px;
@@ -44,10 +32,10 @@
     width: 702px;
     z-index: 2;
     -webkit-appearance: none;
-    -webkit-column-rule-color: $emperor_color;
-    -webkit-text-emphasis-color: $emperor_color;
-    -webkit-text-fill-color: $emperor_color;
-    -webkit-text-stroke-color: $emperor_color;
+    -webkit-column-rule-color: $emperor-color;
+    -webkit-text-emphasis-color: $emperor-color;
+    -webkit-text-fill-color: $emperor-color;
+    -webkit-text-stroke-color: $emperor-color;
   }
 }
 
@@ -106,23 +94,23 @@
 
         .min-price {
           margin-bottom: 10px;
-          color: $dusty_gray_color;
+          color: $dusty-gray-color;
 
           .price {
             font-weight: bold;
-            color: $dove_gray_color;
+            color: $dove-gray-color;
           }
         }
 
         .details {
           margin-bottom: 0px;
-          color: $dove_gray_color;
+          color: $dove-gray-color;
 
           .region {
             display: inline;
             margin-right: 20px;
             padding: 0px 5px 0px 5px;
-            border: 1px solid $dove_gray_color;
+            border: 1px solid $dove-gray-color;
             border-radius: 3px;
           }
 
@@ -133,34 +121,34 @@
       }
 
       .col-sm-3 {
-        .icon_calendar {
+        .icon-calendar {
           position: absolute;
           width: 70px;
           height: 70px;
           right: 0;
           margin-top: -10px;
           border-radius: 18px;
-          background-color: $seashell_color;
-          border: 2px solid $silver_color;
+          background-color: $seashell-color;
+          border: 2px solid $silver-color;
           cursor: pointer;
-          color: $carnation_color;
+          color: $carnation-color;
           overflow: hidden;
 
-          .month_wrap {
+          .month-wrap {
             position: absolute;
             width: 100%;
             text-align: center;
             line-height: 30px;
-            color: $carnation_color;
+            color: $carnation-color;
             font-size: 13px;
           }
 
-          .days_wrap {
+          .days-wrap {
             position: absolute;
             width: 100%;
             text-align: center;
             top: 25px;
-            color: $dove_gray_color;
+            color: $dove-gray-color;
             font-size: 30px;
           }
         }
@@ -181,8 +169,8 @@
     padding-top: 80px;
     min-height: 700px;
     height: 100%;
-    color: $athens_gray_color;
-    background-color: $limed_spruce_color;
+    color: $athens-gray-color;
+    background-color: $limed-spruce-color;
 
     h1 {
       margin-left: 10px;
@@ -214,7 +202,7 @@
 
       .price {
         font-weight: bold;
-        font-size: 18px;
+        font-size: 16px;
       }
     }
 

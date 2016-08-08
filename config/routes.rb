@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   get "register", to: "users#new"
 
   resources :users
+  resources :orders, only: [:index, :show]
 
-  resources :events do
-    resources :tickets
+  resources :events, except: :destroy do
+    resources :orders, only: [:create, :new]
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

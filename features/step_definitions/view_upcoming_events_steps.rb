@@ -6,15 +6,20 @@ DUMMY_KEYWORD = "dummy"
 And "There are some events" do
   @events = [
     create(:event, name: "New event 1", starts_at: 2.weeks.since),
-    create(:event, name: "Old event 2", starts_at: 2.weeks.ago),
+    create(:expired_event, name: "Old event 2"),
     create(:event, name: "New event 3", starts_at: 1.week.since)
+  ]
+
+  @ticket_types = [
+    create(:ticket_type, name: "Type 1", event: @events[0], price: 50_000),
+    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 5)
   ]
 end
 
 And "I can see list of upcoming events ordered by started time" do
   base_xpath = "(//h4[@class='card-title'])"
-  expect(page).to have_selector("#{base_xpath}[1]", text: @events[2].name)
-  expect(page).to have_selector("#{base_xpath}[2]", text: @events[0].name)
+  expect(page).to have_selector "#{base_xpath}[1]", text: @events[2].name
+  expect(page).to have_selector "#{base_xpath}[2]", text: @events[0].name
 end
 
 When "I click on an event" do
@@ -31,7 +36,7 @@ When "I input a dummy keyword" do
 end
 
 Then "I press enter to search" do
-  find_field("search").native.send_key(:enter)
+  find_field("search").native.send_key :enter
 end
 
 When "I input a keyword" do
