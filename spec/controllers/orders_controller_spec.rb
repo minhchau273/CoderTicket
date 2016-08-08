@@ -9,7 +9,7 @@ RSpec.describe OrdersController, type: :controller do
 
       it "redirects to Home page and shows error message" do
         expect(response).to redirect_to root_path
-        expect(flash[:alert]).to eq EVENT_NOT_FOUND
+        expect(flash[:alert]).to eq "This event is not available."
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe OrdersController, type: :controller do
           let(:order) { create(:order) }
 
           before do
-            expect(Order).to receive(:build_from_event).and_return order
+            expect(Order).to receive(:build_from_event).with(event).and_return order
           end
 
           it "is successful and creates new order with some order items based on the ticket types of this event" do
@@ -102,7 +102,7 @@ RSpec.describe OrdersController, type: :controller do
 
       it "redirects to Home page and shows error message" do
         expect(response).to redirect_to root_path
-        expect(flash[:alert]).to eq ORDER_NOT_FOUND
+        expect(flash[:alert]).to eq "This order is not available."
       end
     end
 

@@ -1,24 +1,14 @@
 class OrdersController < ApplicationController
-  def show
-    if @order = Order.find_by(id: params[:id])
-      authorize! :read, @order
-    else
-      redirect_to root_path, alert: ORDER_NOT_FOUND
-    end
-  end
+  before_action :load_order, only: :show
+  before_action :load_event, only: :new
+  authorize_resource only: :show
 
   def new
-    if @event = Event.find_by(id: params[:event_id])
-      if @event.has_expired?
-        redirect_to root_path, alert: EXPIRED_EVENT
-      else
-        @order = Order.build_from_event(@event)
-        authorize! :create, @order
-      end
+    if @event.has_expired?
+      redirect_to root_path, alert: EXPIRED_EVENT
     else
-      redirect_to root_path, alert: EVENT_NOT_FOUND
+      authorize! :create, @order = Order.build_from_event(@event)
     end
-
   rescue CanCan::AccessDenied
     store_location_and_require_login
   end
@@ -33,6 +23,14 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def load_order
+    @order = Order.find(params[:id])
+  end
+
+  def load_event
+    @event = Event.find(params[:event_id])
+  end
 
   def order_params
     order_params = params.require(:order).permit(:event_id, order_items_attributes: [:quantity, :ticket_type_id])

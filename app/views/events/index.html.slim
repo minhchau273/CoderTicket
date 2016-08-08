@@ -5,9 +5,9 @@
     form
       input.form-control type="text" name="search" placeholder="Search for events, shows, courses..." value="#{@keyword}" onfocus="this.value = this.value;" autofocus="true"
 .container-fluid.events-list
-  - if message = flash[:alert].present?
+  - if (message = flash[:alert]).present?
     .alert.alert-danger
-      = flash[:alert]
+      = message
   - if @events.empty?
     p.no-results
       | No events found!

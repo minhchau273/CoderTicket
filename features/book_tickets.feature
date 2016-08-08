@@ -11,7 +11,7 @@ Feature: Book tickets
   Scenario: I go to an unavailable event's Booking page
     When I visit an unavailable event's booking page
     Then I should be at the Home page
-    And I can see event not found message
+    And I can see "This event is not available."
 
   Scenario: I haven't signed in yet and go to Booking page
     When I click on an event

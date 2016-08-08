@@ -8,10 +8,6 @@ When "I visit an unavailable event's booking page" do
   visit new_event_order_path INVALID_ID
 end
 
-And "I can see event not found message" do
-  step "I can see \"#{EVENT_NOT_FOUND}\""
-end
-
 When "I click Book Now button" do
   sleep 1
   find(:css, ".book-now-button").click
