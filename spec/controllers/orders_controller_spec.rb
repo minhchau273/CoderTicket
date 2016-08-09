@@ -9,8 +9,8 @@ RSpec.describe OrdersController, type: :controller do
 
       let(:order_1) { create(:order, user: @user, created_at: 3.weeks.ago) }
       let(:order_2) { create(:order, user: @user, created_at: 2.weeks.ago) }
-      let(:order_3) { create(:order) }
-      let(:orders) { [order_2, order_1] }
+      let!(:order_3) { create(:order) }
+      let!(:orders) { [order_2, order_1] }
 
       before do
         subject
@@ -24,7 +24,6 @@ RSpec.describe OrdersController, type: :controller do
 
     context "user has not signed in yet" do
       before do
-        expect(controller).to receive(:store_location_and_require_login).and_call_original
         subject
       end
 

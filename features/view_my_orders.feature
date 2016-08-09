@@ -5,7 +5,6 @@ Feature: View my orders
   Background:
     Given There are some events
     And There is a registered user
-    And I have some orders
     And I am at Home page
 
   Scenario: I haven't signed in yet and go to Order management page
@@ -16,8 +15,15 @@ Feature: View my orders
     And I click "Sign In"
     Then I should be at the Order management page
 
-  Scenario: I have already signed in and go to Order management page
+  Scenario: I have already signed in and go to Order management page but I don't have any order
     When I sign in
+    And I visit the Order management page
+    Then I can see "Order Management"
+    And I can see "You don't have any order."
+
+  Scenario: I have already signed in and go to Order management page
+    When I have some orders
+    And I sign in
     And I visit the Order management page
     Then I can see "Order Management"
     And I can see the number of orders and the total amount of my orders
