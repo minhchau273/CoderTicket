@@ -7,7 +7,7 @@ Then "I should be at the Order management page" do
 end
 
 And "I can see the number of orders and the total amount of my orders" do
-  step "I can see \"2 order(s)\""
+  step "I can see \"2 orders\""
   step "I can see \"1,400,000 VND\""
 end
 

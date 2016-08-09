@@ -32,4 +32,5 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.extend SessionUtils, type: :controller
+  config.include Rails.application.routes.url_helpers
 end

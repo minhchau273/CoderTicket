@@ -28,7 +28,9 @@ RSpec.describe OrdersController, type: :controller do
         subject
       end
 
-      it_behaves_like "require signing in"
+      it_behaves_like "require signing in" do
+        let(:previous_path) { orders_path }
+      end
     end
   end
 
@@ -77,7 +79,9 @@ RSpec.describe OrdersController, type: :controller do
             subject
           end
 
-          it_behaves_like "require signing in"
+          it_behaves_like "require signing in" do
+            let(:previous_path) { new_event_order_path event }
+          end
         end
       end
     end
@@ -108,6 +112,7 @@ RSpec.describe OrdersController, type: :controller do
     context "user has not signed in yet" do
       it_behaves_like "require signing in" do
         before { subject }
+        let(:previous_path) { event_orders_path event }
       end
     end
 
