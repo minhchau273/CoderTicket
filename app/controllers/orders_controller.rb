@@ -1,32 +1,24 @@
 class OrdersController < ApplicationController
-  before_action :load_order, only: :show
   before_action :load_event, only: :new
+  before_action :check_expired_event, only: :new
+  before_action :authenticate_resource, only: [:index, :new]
+  before_action :load_order, only: :show
   authorize_resource only: :show
 
   def new
-    if @event.has_expired?
-      redirect_to root_path, alert: EXPIRED_EVENT
-    else
-      authorize! :create, @order = Order.build_from_event(@event)
-    end
-  rescue CanCan::AccessDenied
-    store_location_and_require_login
+    @order = Order.build_from_event(@event)
   end
 
   def create
     if (@order = Order.new(order_params)).save
-      flash[:notice] = "Order successfully!"
-      redirect_to order_path(@order)
+      redirect_to order_path(@order), notice: ORDER_SUCCESSFULLY
     else
       render "new"
     end
   end
 
   def index
-    authorize! :read, Order
     @orders = current_user.orders
-  rescue CanCan::AccessDenied
-    store_location_and_require_login
   end
 
   private
@@ -37,6 +29,12 @@ class OrdersController < ApplicationController
 
   def load_event
     @event = Event.find(params[:event_id])
+  end
+
+  def check_expired_event
+    if @event.has_expired?
+      redirect_to root_path, alert: EXPIRED_EVENT
+    end
   end
 
   def order_params
