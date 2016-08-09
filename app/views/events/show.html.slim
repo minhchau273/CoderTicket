@@ -9,7 +9,7 @@
       .ticket-list
         - @event.ticket_types.each do |ticket_type|
           .row
-            .col-md-6
+            .col-md-6.ticket-name
               = ticket_type.name
             .col-md-6.price.text-right
               = formatted_price(ticket_type.price)

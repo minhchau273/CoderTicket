@@ -13,8 +13,14 @@ When "I click on an event" do
   step "I click \"#{@events[0].name}\""
 end
 
-Then "I can see the event's name" do
-  step "I can see \"#{@events[0].name}\""
+And "I can see a list of ticket types in descending order of prices in details page" do
+  name_xpath = "(//div[@class='col-md-6 ticket-name'])"
+  expect(page).to have_selector "#{name_xpath}[1]", text: @ticket_types[1].name
+  expect(page).to have_selector "#{name_xpath}[2]", text: @ticket_types[0].name
+
+  price_xpath = "(//div[@class='col-md-6 price text-right'])"
+  expect(page).to have_selector "#{price_xpath}[1]", text: formatted_price(@ticket_types[1].price)
+  expect(page).to have_selector "#{price_xpath}[2]", text: formatted_price(@ticket_types[0].price)
 end
 
 When "I input a dummy keyword" do

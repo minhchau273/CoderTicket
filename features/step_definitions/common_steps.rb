@@ -34,6 +34,21 @@ And "There are some events" do
 
   @ticket_types = [
     create(:ticket_type, name: "Type 1", event: @events[0], price: 50_000),
-    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 5)
+    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 5),
+    create(:ticket_type, name: "Type 3", event: @events[2], price: 200_000)
+  ]
+end
+
+And "I have some orders" do
+  user = User.find_by(email: VALID_EMAIL)
+  @orders = [
+    create(:order, user: user, event: @events[0], created_at: DateTime.new(2016, 7, 7, 12, 30, 0)),
+    create(:order, user: user, event: @events[2], created_at: DateTime.new(2016, 8, 7, 12, 30, 0))
+  ]
+
+  @order_items = [
+    create(:order_item, order: @orders[0], ticket_type: @ticket_types[0], quantity: 2),
+    create(:order_item, order: @orders[0], ticket_type: @ticket_types[1], quantity: 3),
+    create(:order_item, order: @orders[1], ticket_type: @ticket_types[2], quantity: 5)
   ]
 end

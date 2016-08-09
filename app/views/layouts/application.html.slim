@@ -12,8 +12,7 @@ html
       - if current_user
         ul.nav.navbar-nav.navbar-right
           li.nav-item
-            a.nav-link href="#"
-              | Welcome #{current_user.email}
+            = link_to "Welcome #{current_user.email}", orders_path, class: "nav-link"
           li.nav-item
             = link_to "Sign Out", logout_path, method: :delete, class: "nav-link"
       - else

@@ -12,7 +12,8 @@ Feature: View upcoming events at Home page
 
   Scenario: View event details
     When I click on an event
-    Then I can see the event's name
+    Then I can see event's information
+    And I can see a list of ticket types in descending order of prices in details page
 
   Scenario: Search events and get no results
     When I input a dummy keyword

@@ -20,11 +20,11 @@
             tr
               td.center
                 = index + 1
-              td
+              td.ticket-name
                 = item.ticket_type_name
-              td.center
+              td.center.ticket-quantity
                 = item.quantity
-              td.center
+              td.center.ticket-subtotal
                 = formatted_price(item.subtotal)
         tfoot
           tr

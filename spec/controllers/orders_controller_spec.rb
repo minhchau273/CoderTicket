@@ -1,6 +1,38 @@
 require "rails_helper"
 
 RSpec.describe OrdersController, type: :controller do
+  describe "GET #index" do
+    subject { get :index }
+
+    context "user has already signed in" do
+      login
+
+      let(:order_1) { create(:order, user: @user, created_at: 3.weeks.ago) }
+      let(:order_2) { create(:order, user: @user, created_at: 2.weeks.ago) }
+      let!(:order_3) { create(:order) }
+      let!(:orders) { [order_2, order_1] }
+
+      before do
+        subject
+      end
+
+      it "is successful and creates new order with some order items based on the ticket types of this event" do
+        expect(response).to be_success
+        expect(assigns(:orders).to_a).to eq orders
+      end
+    end
+
+    context "user has not signed in yet" do
+      before do
+        subject
+      end
+
+      it_behaves_like "require signing in" do
+        let(:previous_path) { orders_path }
+      end
+    end
+  end
+
   describe "GET #new" do
     subject { get :new, event_id: event_id }
 
@@ -46,8 +78,8 @@ RSpec.describe OrdersController, type: :controller do
             subject
           end
 
-          it "redirects to Sign in page" do
-            expect(response).to redirect_to login_path
+          it_behaves_like "require signing in" do
+            let(:previous_path) { new_event_order_path event }
           end
         end
       end
@@ -55,8 +87,6 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe "POST #create" do
-    login
-
     subject do
       post :create, {
         event_id: event.id,
@@ -78,13 +108,24 @@ RSpec.describe OrdersController, type: :controller do
     let(:order_items) { new_order.order_items.order(:quantity) }
     let(:ordered_ticket_types) { order_items.map(&:ticket_type) }
 
-    it "creates new order and redirects to this order's details page" do
-      expect{ subject }.to change(Order, :count).by(1)
-      expect(new_order.user).to eq @user
-      expect(new_order.event).to eq event
-      expect(ordered_ticket_types).to eq [ticket_type_2, ticket_type_3]
-      expect(response).to redirect_to order_path(new_order)
-      expect(flash[:notice]).to eq "Order successfully!"
+    context "user has not signed in yet" do
+      it_behaves_like "require signing in" do
+        before { subject }
+        let(:previous_path) { event_orders_path event }
+      end
+    end
+
+    context "user has already signed in" do
+      login
+
+      it "creates new order and redirects to this order's details page" do
+        expect{ subject }.to change(Order, :count).by(1)
+        expect(new_order.user).to eq @user
+        expect(new_order.event).to eq event
+        expect(ordered_ticket_types).to eq [ticket_type_2, ticket_type_3]
+        expect(response).to redirect_to order_path(new_order)
+        expect(flash[:notice]).to eq ORDER_SUCCESSFULLY
+      end
     end
   end
 
