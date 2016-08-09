@@ -15,7 +15,7 @@
     .col-md-11.col-md-offset-1
       - if @orders.empty?
         .alert.alert-danger.order-message
-          = "You don't have any order."
+          | You don't have any order.
       - else
         table.table.order-list
           th.center
