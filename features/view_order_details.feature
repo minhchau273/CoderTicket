@@ -1,5 +1,5 @@
 @javascript
-Feature: View my orders
+Feature: View order details
   I want to view order details
 
   Background:

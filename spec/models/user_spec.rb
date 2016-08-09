@@ -22,8 +22,10 @@ RSpec.describe User, type: :model do
     let(:ticket_type_2) { create(:ticket_type, event: event, price: 100_000) }
     let(:order_1) { create(:order, user: user, event: event) }
     let(:order_2) { create(:order, user: user, event: event) }
+    let(:order_3) { create(:order) }
     let!(:order_item_1) { create(:order_item, order: order_1, ticket_type: ticket_type_1, quantity: 1) }
     let!(:order_item_2) { create(:order_item, order: order_2, ticket_type: ticket_type_2, quantity: 2) }
+    let!(:order_item_3) { create(:order_item, order: order_3, ticket_type: ticket_type_2, quantity: 2) }
 
     it "returns the total amount of this user's orders" do
       expect(user.total_amount).to eq 250_000

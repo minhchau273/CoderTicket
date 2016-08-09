@@ -10,4 +10,3 @@ shared_examples "require signing in" do
     expect(response).to redirect_to login_path
   end
 end
-

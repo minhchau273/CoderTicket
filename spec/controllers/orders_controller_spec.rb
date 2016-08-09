@@ -82,7 +82,7 @@ RSpec.describe OrdersController, type: :controller do
       expect(new_order.event).to eq event
       expect(ordered_ticket_types).to eq [ticket_type_2, ticket_type_3]
       expect(response).to redirect_to order_path(new_order)
-      expect(flash[:notice]).to eq "Order successfully!"
+      expect(flash[:notice]).to eq ORDER_SUCCESSFULLY
     end
   end
 

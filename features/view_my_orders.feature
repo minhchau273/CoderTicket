@@ -1,6 +1,6 @@
 @javascript
 Feature: View my orders
-  I want to view a list of my orders and order details
+  I want to view a list of my orders
 
   Background:
     Given There are some events

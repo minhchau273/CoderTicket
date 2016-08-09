@@ -6,7 +6,7 @@
       .pull-left
         = fa_icon "ticket"
       .venue-details
-        = "#{@orders.count} order(s)"
+        = pluralize(@orders.count, "order")
       .pull-left
         = fa_icon "money"
       .time-details
