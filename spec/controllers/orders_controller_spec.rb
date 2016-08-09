@@ -19,6 +19,7 @@ RSpec.describe OrdersController, type: :controller do
       it "is successful and creates new order with some order items based on the ticket types of this event" do
         expect(response).to be_success
         expect(assigns(:orders).to_a).to eq orders
+        expect(subject).to render_template "settings"
       end
     end
 

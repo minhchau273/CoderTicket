@@ -1,0 +1,30 @@
+.settings-sidebar {
+  h3 {
+    padding-left: 40px;
+    font-weight: bold;
+  }
+
+  ul {
+    margin-top: 50px;
+    list-style-type: none;
+
+    li {
+      padding-bottom: 20px;
+      color: $shuttle-gray-color;
+
+      i {
+        padding-right: 15px;
+      }
+    }
+
+    .active {
+      color: white;
+    }
+  }
+}
+
+.settings-content {
+  .row {
+    margin: 0;
+  }
+}

@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  layout "settings", only: [:index]
+
   before_action :load_event, only: :new
   before_action :check_expired_event, only: :new
   before_action :authenticate_resource, only: [:index, :new, :create]
