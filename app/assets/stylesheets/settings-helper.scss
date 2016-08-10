@@ -17,6 +17,10 @@
       }
     }
 
+    a {
+      color: inherit;
+    }
+
     .active {
       color: white;
     }
@@ -26,5 +30,22 @@
 .settings-content {
   .row {
     margin: 0;
+  }
+
+  h2 {
+    padding-top: 10px;
+    margin-bottom: 20px;
+    font-size: 21px;
+    font-weight: 800;
+    color: white;
+  }
+
+  i {
+    padding-top: 2px;
+  }
+
+  .expired-event {
+    color: $logan-color;
+    background-color: transparentize($mischka-color, 0.5);
   }
 }

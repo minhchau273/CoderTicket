@@ -5,7 +5,7 @@ FactoryGirl.define do
     ends_at { starts_at + 2.hours }
     hero_image_url { Faker::Avatar.image }
     extended_html_description "<h1>Test</h1>"
-    creator { create(:user) }
+    association :creator, factory: :user
     venue
     category { Category.first }
 

@@ -6,6 +6,11 @@ Then "I should be at the Order management page" do
   expect(page).to have_current_path orders_path
 end
 
+And "I can see Order tab is highlighted" do
+  page.find(:xpath, "//div[contains(@class, 'settings-sidebar')]//li[1]")["active"]
+  expect(page.find(:xpath, "//div[contains(@class, 'settings-sidebar')]//li[2]")["active"]).to be_falsey
+end
+
 And "I can see the number of orders and the total amount of my orders" do
   step "I can see \"2 orders\""
   step "I can see \"1,400,000 VND\""
@@ -34,6 +39,6 @@ Then "I can see this order details" do
   step "I can see \"#{formatted_price(@orders[0].total)}\""
 end
 
-Then "I click my email at the top to view my orders" do
+Then "I click my email at the top to view My account page" do
   step "I click \"Welcome #{@current_user.email}\""
 end

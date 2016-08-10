@@ -10,6 +10,6 @@ EXPIRED_EVENT = "This event is no longer available."
 
 # DateTime format
 SHORT_DATE_FORMAT = "%b %d, %Y"
-FULL_DATE_FORMAT = "%A, %d %b %Y %l:%M %p"
+FULL_DATE_FORMAT = "%A, %d %b %Y %I:%M %p"
 FULL_MONTH_FORMAT = "%B"
 DAY_FORMAT = "%d"

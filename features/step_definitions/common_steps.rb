@@ -25,11 +25,11 @@ Then "I sign in" do
   @current_user = User.find_by(email: VALID_EMAIL)
 end
 
-And "There are some events" do
+And "I have some events" do
   @events = [
-    create(:event, name: "New event 1", starts_at: 2.weeks.since),
-    create(:expired_event, name: "Old event 2"),
-    create(:event, name: "New event 3", starts_at: 1.week.since)
+    create(:event, name: "New event 1", creator: @registered_user, created_at: 2.days.ago, starts_at: 2.weeks.since),
+    create(:expired_event, name: "Old event 2", creator: @registered_user, created_at: 3.days.ago),
+    create(:event, name: "New event 3", creator: @registered_user, created_at: 5.days.ago, starts_at: 1.week.since)
   ]
 
   @ticket_types = [
@@ -40,10 +40,9 @@ And "There are some events" do
 end
 
 And "I have some orders" do
-  user = User.find_by(email: VALID_EMAIL)
   @orders = [
-    create(:order, user: user, event: @events[0], created_at: DateTime.new(2016, 7, 7, 12, 30, 0)),
-    create(:order, user: user, event: @events[2], created_at: DateTime.new(2016, 8, 7, 12, 30, 0))
+    create(:order, user: @registered_user, event: @events[0], created_at: DateTime.new(2016, 7, 7, 12, 30, 0)),
+    create(:order, user: @registered_user, event: @events[2], created_at: DateTime.new(2016, 8, 7, 12, 30, 0))
   ]
 
   @order_items = [

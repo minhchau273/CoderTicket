@@ -3,8 +3,8 @@ Feature: View order details
   I want to view order details
 
   Background:
-    Given There are some events
-    And There is a registered user
+    Given There is a registered user
+    And I have some events
     And I have some orders
     And I am at Home page
 

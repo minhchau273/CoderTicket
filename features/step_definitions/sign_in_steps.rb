@@ -1,8 +1,8 @@
 VALID_EMAIL = "cheetah@cs.com"
 CORRECT_PASSWORD = "123123"
 SIGN_IN_FIELDS = {
-    email: "sign_in_email",
-    password: "sign_in_password"
+  email: "sign_in_email",
+  password: "sign_in_password"
 }
 
 Given "I am at Login page" do
@@ -10,7 +10,7 @@ Given "I am at Login page" do
 end
 
 And "There is a registered user" do
-  create(:user, email: VALID_EMAIL)
+  @registered_user = create(:user, email: VALID_EMAIL)
 end
 
 When "I input valid email and password to sign in" do
