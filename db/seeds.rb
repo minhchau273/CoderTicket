@@ -3,7 +3,7 @@
 #
 
 # Create User
-User.create(name: 'Chau', email: 'chau@ea.com', password: '123123', password_confirmation: '123123')
+user = User.create(name: 'Chau', email: 'chau@ea.com', password: '123123', password_confirmation: '123123')
 
 # Create Regions
 ['Ho Chi Minh', 'Ha Noi', 'Binh Thuan', 'Da Nang', 'Lam Dong'].each do |r|
@@ -27,6 +27,7 @@ e = Event.create({
   name: 'Việt Nam Thử Thách Chiến Thắng', 
   starts_at: DateTime.parse('Fri, 11 Mar 2016 7:00 AM+0700'),
   ends_at: DateTime.parse('Sun, 13 Mar 2016 3:00 PM+0700'),
+  creator_id: user.id,
   venue: dalat,
   category: Category.find_by(name: 'Everything Else'),
   hero_image_url: 'https://az810747.vo.msecnd.net/eventcover/2015/10/25/C6A1A5.jpg?w=1040&maxheight=400&mode=crop&anchor=topcenter',
@@ -53,6 +54,7 @@ dan_venue = Venue.create({
 
 e = Event.create({
   name: 'Cảm ơn Đời - Live Concert Đan Trường',
+  creator_id: user.id,
   venue: dan_venue,
   category: Category.find_by(name: 'Entertainment'),
   starts_at: DateTime.parse('Sat, 27 Aug 2016, 8:00 PM+0700'),
@@ -138,6 +140,7 @@ e = Event.create({
   name: 'Merry Christmas Never Alone',
   starts_at: DateTime.parse('Sat, 24 Dec 2016, 8:00 PM+0700'),
   ends_at: DateTime.parse('Sat, 24 Dec 2016, 11:00 PM+0700'),
+  creator_id: user.id,
   venue: gap,
   category: Category.find_by(name: 'Entertainment'),
   hero_image_url:'https://az810747.vo.msecnd.net/eventcover/2015/12/12/78534E.jpg?w=1040&maxheight=400&mode=crop&anchor=topcenter',
