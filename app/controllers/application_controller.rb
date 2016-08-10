@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def authenticate_resource
+  def authenticate_user
     store_location_and_require_login unless current_user
   end
 

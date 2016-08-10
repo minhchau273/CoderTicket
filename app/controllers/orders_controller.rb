@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   before_action :load_event, only: :new
   before_action :check_expired_event, only: :new
-  before_action :authenticate_resource, only: [:index, :new, :create]
+  before_action :authenticate_user, only: [:index, :new, :create]
   before_action :load_order, only: :show
   authorize_resource only: :show
 
