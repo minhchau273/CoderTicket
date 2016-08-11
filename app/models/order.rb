@@ -17,7 +17,7 @@ class Order < ActiveRecord::Base
   end
 
   def total
-    order_items.map(&:subtotal).sum
+    order_items.joins(:ticket_type).sum("quantity * ticket_types.price")
   end
 
   def created_at_to_s

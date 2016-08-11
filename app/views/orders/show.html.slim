@@ -16,7 +16,7 @@
           th.center
             |  Subtotal
         tbody
-          - @order.order_items.each_with_index do |item, index|
+          - @order_items.each_with_index do |item, index|
             tr
               td.center
                 = index + 1
