@@ -1,0 +1,16 @@
+.container-fluid.no-pad.events-detail
+  .row.no-pad
+    .col-md-3.sidebar.settings-sidebar
+      h3
+        = fa_icon "cog"
+        |  My Account
+      ul
+        li class=("active" if controller_name == "orders")
+          = fa_icon "ticket"
+          = link_to "Order Management", orders_path
+        li class=("active" if controller_name == "events")
+          = fa_icon "calendar"
+          = link_to "Event Management", user_events_path(current_user)
+    .col-md-9.tickets-buy.event-content.settings-content
+      = yield :settings
+= render template: "layouts/application"  

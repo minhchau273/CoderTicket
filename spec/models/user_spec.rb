@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe User, type: :model do
   describe "relationships" do
     it { is_expected.to have_many(:orders).order(created_at: :desc) }
+    it { is_expected.to have_many(:events).order(created_at: :desc).with_foreign_key(:creator_id) }
   end
 
   describe "validations" do

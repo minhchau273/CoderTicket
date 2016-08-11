@@ -26,29 +26,40 @@ Then "I sign in" do
 end
 
 And "There are some events" do
-  @events = [
-    create(:event, name: "New event 1", starts_at: 2.weeks.since),
-    create(:expired_event, name: "Old event 2"),
-    create(:event, name: "New event 3", starts_at: 1.week.since)
-  ]
+  create_events
+  create_ticket_types
+end
 
-  @ticket_types = [
-    create(:ticket_type, name: "Type 1", event: @events[0], price: 50_000),
-    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 5),
-    create(:ticket_type, name: "Type 3", event: @events[2], price: 200_000)
-  ]
+And "I have some events" do
+  create_events(creator: @registered_user)
+  create_ticket_types
 end
 
 And "I have some orders" do
-  user = User.find_by(email: VALID_EMAIL)
   @orders = [
-    create(:order, user: user, event: @events[0], created_at: DateTime.new(2016, 7, 7, 12, 30, 0)),
-    create(:order, user: user, event: @events[2], created_at: DateTime.new(2016, 8, 7, 12, 30, 0))
+    create(:order, user: @registered_user, event: @events[0], created_at: DateTime.new(2016, 7, 7, 12, 30, 0)),
+    create(:order, user: @registered_user, event: @events[2], created_at: DateTime.new(2016, 8, 7, 12, 30, 0))
   ]
 
   @order_items = [
     create(:order_item, order: @orders[0], ticket_type: @ticket_types[0], quantity: 2),
     create(:order_item, order: @orders[0], ticket_type: @ticket_types[1], quantity: 3),
     create(:order_item, order: @orders[1], ticket_type: @ticket_types[2], quantity: 5)
+  ]
+end
+
+def create_events(options = {})
+  @events = [
+    create(:event, { name: "New event 1", created_at: 2.days.ago, starts_at: 2.weeks.since }.merge(options)),
+    create(:expired_event, { name: "Old event 2", created_at: 3.days.ago }.merge(options)),
+    create(:event, { name: "New event 3", created_at: 5.days.ago, starts_at: 1.week.since }.merge(options))
+  ]
+end
+
+def create_ticket_types
+  @ticket_types = [
+    create(:ticket_type, name: "Type 1", event: @events[0], price: 50_000),
+    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 5),
+    create(:ticket_type, name: "Type 3", event: @events[2], price: 200_000)
   ]
 end

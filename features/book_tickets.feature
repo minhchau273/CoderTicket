@@ -3,9 +3,9 @@ Feature: Book tickets
   I want to book tickets for upcoming events
 
   Background:
-    Given There are some events
+    Given There is a registered user
+    And There are some events
     And There is a sold out ticket type
-    And There is a registered user
     And I am at Home page
 
   Scenario: I go to an unavailable event's Booking page

@@ -1,0 +1,34 @@
+- content_for :settings do
+  .row.tickets-header
+    .col-xs-12.col-md-11.col-md-offset-1
+      h2
+        | Event Management
+      .pull-left
+        = fa_icon "calendar"
+      .venue-details
+        = pluralize(@events.count, "event")
+  .row
+    .col-md-11.col-md-offset-1
+      - if @events.empty?
+        .alert.alert-danger.order-message
+          | You haven't created any event yet.
+      - else
+        table.table.order-list
+          th.center
+            | No.
+          th
+            | Event
+          th.center
+            | Starting Date
+          th.center
+            | Region
+          - @events.each_with_index do |event, index|
+            tr class=("expired-event" if event.has_expired?)
+              td.center
+                = index + 1
+              td.event-name
+                = event.name
+              td.center.starting-time
+                = event.starts_at_to_s
+              td.center.event-region
+                = event.region_name

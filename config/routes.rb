@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   get "register", to: "users#new"
 
-  resources :users
+  resources :users do
+    scope module: :users do
+      resources :events
+    end
+  end
   resources :orders, only: [:index, :show]
 
   resources :events, except: :destroy do
