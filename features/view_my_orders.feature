@@ -4,7 +4,7 @@ Feature: View my orders
 
   Background:
     Given There is a registered user
-    And I have some events
+    And There are some events
     And I am at Home page
 
   Scenario: I haven't signed in yet and go to Order management page

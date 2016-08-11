@@ -25,18 +25,14 @@ Then "I sign in" do
   @current_user = User.find_by(email: VALID_EMAIL)
 end
 
-And "I have some events" do
-  @events = [
-    create(:event, name: "New event 1", creator: @registered_user, created_at: 2.days.ago, starts_at: 2.weeks.since),
-    create(:expired_event, name: "Old event 2", creator: @registered_user, created_at: 3.days.ago),
-    create(:event, name: "New event 3", creator: @registered_user, created_at: 5.days.ago, starts_at: 1.week.since)
-  ]
+And "There are some events" do
+  create_events
+  create_ticket_types
+end
 
-  @ticket_types = [
-    create(:ticket_type, name: "Type 1", event: @events[0], price: 50_000),
-    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 5),
-    create(:ticket_type, name: "Type 3", event: @events[2], price: 200_000)
-  ]
+And "I have some events" do
+  create_events(@registered_user)
+  create_ticket_types
 end
 
 And "I have some orders" do
@@ -49,5 +45,21 @@ And "I have some orders" do
     create(:order_item, order: @orders[0], ticket_type: @ticket_types[0], quantity: 2),
     create(:order_item, order: @orders[0], ticket_type: @ticket_types[1], quantity: 3),
     create(:order_item, order: @orders[1], ticket_type: @ticket_types[2], quantity: 5)
+  ]
+end
+
+def create_events(creator = create(:user))
+  @events = [
+    create(:event, name: "New event 1", creator: creator, created_at: 2.days.ago, starts_at: 2.weeks.since),
+    create(:expired_event, name: "Old event 2", creator: creator, created_at: 3.days.ago),
+    create(:event, name: "New event 3", creator: creator, created_at: 5.days.ago, starts_at: 1.week.since)
+  ]
+end
+
+def create_ticket_types
+  @ticket_types = [
+    create(:ticket_type, name: "Type 1", event: @events[0], price: 50_000),
+    create(:ticket_type, name: "Type 2", event: @events[0], price: 100_000, max_quantity: 5),
+    create(:ticket_type, name: "Type 3", event: @events[2], price: 200_000)
   ]
 end

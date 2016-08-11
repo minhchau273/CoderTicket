@@ -4,7 +4,7 @@ Feature: Book tickets
 
   Background:
     Given There is a registered user
-    And I have some events
+    And There are some events
     And There is a sold out ticket type
     And I am at Home page
 

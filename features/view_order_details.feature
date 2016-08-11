@@ -4,7 +4,7 @@ Feature: View order details
 
   Background:
     Given There is a registered user
-    And I have some events
+    And There are some events
     And I have some orders
     And I am at Home page
 
