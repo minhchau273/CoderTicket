@@ -31,7 +31,7 @@ And "There are some events" do
 end
 
 And "I have some events" do
-  create_events(@registered_user)
+  create_events(creator: @registered_user)
   create_ticket_types
 end
 
@@ -48,11 +48,11 @@ And "I have some orders" do
   ]
 end
 
-def create_events(creator = create(:user))
+def create_events(options = {})
   @events = [
-    create(:event, name: "New event 1", creator: creator, created_at: 2.days.ago, starts_at: 2.weeks.since),
-    create(:expired_event, name: "Old event 2", creator: creator, created_at: 3.days.ago),
-    create(:event, name: "New event 3", creator: creator, created_at: 5.days.ago, starts_at: 1.week.since)
+    create(:event, { name: "New event 1", created_at: 2.days.ago, starts_at: 2.weeks.since }.merge(options)),
+    create(:expired_event, { name: "Old event 2", created_at: 3.days.ago }.merge(options)),
+    create(:event, { name: "New event 3", created_at: 5.days.ago, starts_at: 1.week.since }.merge(options))
   ]
 end
 
