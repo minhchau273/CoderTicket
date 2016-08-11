@@ -18,7 +18,7 @@ RSpec.describe Users::EventsController, type: :controller do
       context "user accesses his/her events" do
         let(:user) { @user }
         let(:event_1) { create(:event, creator: @user, created_at: 3.weeks.ago) }
-        let(:event_2) { create(:event, creator: @user, created_at: 2.weeks.ago) }
+        let(:event_2) { create(:expired_event, creator: @user, created_at: 2.weeks.ago) }
         let!(:event_3) { create(:event) }
         let!(:events) { [event_2, event_1] }
 
