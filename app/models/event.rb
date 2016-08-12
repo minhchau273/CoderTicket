@@ -36,6 +36,6 @@ class Event < ActiveRecord::Base
 
   def self.search(keyword)
     keywords = keyword.downcase.split.join("|")
-    upcoming.where("LOWER(name) SIMILAR TO '%(#{keywords})%'").includes(:venue, :category)
+    upcoming.where("LOWER(name) SIMILAR TO '%(#{keywords})%'")
   end
 end
