@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   def index
     @keyword = params["search"]
-    @events = @keyword.present? ? Event.search(@keyword) : Event.upcoming
+    @events = (@keyword.present? ? Event.search(@keyword) : Event.upcoming).includes(:venue, :category)
   end
 
   def show

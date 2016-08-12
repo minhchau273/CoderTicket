@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   authorize_resource only: :show
 
   def index
-    @orders = current_user.orders
+    @orders = current_user.orders.includes(:event)
   end
 
   def new
@@ -27,6 +27,7 @@ class OrdersController < ApplicationController
 
   def load_order
     @order = Order.find(params[:id])
+    @order_items = @order.order_items.includes(:ticket_type)
   end
 
   def load_event

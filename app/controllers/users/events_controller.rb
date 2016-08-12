@@ -5,7 +5,7 @@ class Users::EventsController < ApplicationController
 
   def index
     authorize! :view_events_of, @user
-    @events = current_user.events
+    @events = current_user.events.includes(:venue)
   end
 
   private
